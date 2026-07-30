@@ -1,6 +1,6 @@
 'use client';
 
-import PromptForge from '@/components/PromptForge';
+import PromptForge from '../../components/PromptForge';
 
 export default function PromptForgePage() {
   return (
