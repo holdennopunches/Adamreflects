@@ -1,0 +1,143 @@
+========================================================
+  YOUR PERSONAL CONSTITUTION — the interview prompt
+  From adamreflects.ie
+========================================================
+
+WHAT THIS IS
+A prompt that builds your Personal Constitution FOR you. Instead of
+staring at a blank page, you paste this into Claude and it interviews
+you — mostly multiple choice — then writes a tight 400–500 word document
+you drop into your AI settings. From then on, every conversation knows
+who you are and how you want to be spoken to.
+
+HOW TO USE IT
+1. Copy everything below the line.
+2. Paste it into a new Claude chat.
+3. Answer the questions. Be honest — it'll push back if you're vague.
+4. When it's done, copy the finished document into Claude:
+   Settings > Profile > User Preferences.
+5. That's it. It works in every conversation from then on.
+
+--------------------------------------------------------
+  START COPYING BELOW THIS LINE
+--------------------------------------------------------
+
+# Your AI Operating System
+### Paste everything below this line into any Claude conversation to begin
+
+---
+
+I want to build my Personal Constitution — a single document I will paste into my AI settings so that every conversation I have is informed by who I am, how I think, and how I want to be spoken to.
+
+Do not write anything yet. Interview me in batches. Use multiple choice wherever possible — I can pick more than one. Push back if my answers are vague. Ask follow-up questions if something needs more depth. Only when you are confident you understand me well enough should you write the document.
+
+The final output must be **400–500 words maximum**. It needs to be tight, specific, and useful — not inspirational. Every sentence should earn its place. An AI reading it should immediately understand who I am, what I value, and exactly how to work with me.
+
+---
+
+## Before we begin — one question
+
+When this document is finished, what do you want AI to become for you? Pick as many as apply:
+
+- [ ] Executive assistant
+- [ ] Strategic advisor
+- [ ] Thinking partner
+- [ ] Accountability coach
+- [ ] Devil's advocate
+- [ ] Business consultant
+- [ ] Project manager
+- [ ] Creative collaborator
+- [ ] Teacher / explainer
+- [ ] Life organiser
+- [ ] Health or fitness coach
+- [ ] Something else — describe it
+
+---
+
+## PART 1 — How You Want AI to Work With You
+
+**1. How do you like information presented?** Pick all that apply:
+- [ ] Short bullet points
+- [ ] Detailed paragraphs
+- [ ] Executive summary first, then detail
+- [ ] Step-by-step
+- [ ] Tables or comparisons
+- [ ] Pros and cons
+- [ ] Just give me the answer — skip the explanation
+- [ ] Examples and analogies
+- [ ] Other — describe it
+
+**2. What annoys you most when AI responds?** Pick all that apply:
+- [ ] Too wordy
+- [ ] Generic advice that could apply to anyone
+- [ ] Repeating what I just said back to me
+- [ ] Unnecessary disclaimers or caveats
+- [ ] Not giving a clear opinion or recommendation
+- [ ] Making assumptions without asking
+- [ ] Starting with "Great question!" or similar filler
+- [ ] Being preachy or adding unsolicited moral commentary
+- [ ] Other — describe it
+
+**3. What should AI NEVER do with you?** Pick all that apply:
+- [ ] Never sugar-coat a bad idea
+- [ ] Never tell me what I want to hear
+- [ ] Never give five options when one is clearly best
+- [ ] Never answer with low confidence without flagging it
+- [ ] Never waste time with preamble
+- [ ] Never use corporate or buzzword language
+- [ ] Never be overly cautious
+- [ ] Other — describe it
+
+**4. What should AI ALWAYS do with you?** Pick all that apply:
+- [ ] Challenge my thinking
+- [ ] Point out blind spots
+- [ ] Be direct even when it is uncomfortable
+- [ ] Push back if I am contradicting myself
+- [ ] Give a recommendation, not just options
+- [ ] Think two steps ahead
+- [ ] Prioritise execution over theory
+- [ ] Remind me of my own values or goals when relevant
+- [ ] Other — describe it
+
+**5. How honest do you want AI to be?**
+- [ ] A — Diplomatic
+- [ ] B — Direct
+- [ ] C — Very direct
+- [ ] D — Brutally honest (blunt but respectful)
+- [ ] Other — describe it
+
+---
+
+## PART 2 — Who You Are
+
+Once Part 1 is answered I will ask you about yourself across these areas — a mix of multiple choice and open questions. I will dig deeper where needed.
+
+- Who you are and what shaped you
+- Your core values and what you will never compromise on
+- Your most important roles (partner, parent, founder, etc.)
+- Your ambition and relationship with money
+- Your health and how you want to live
+- Your blind spots and what tends to go wrong for you
+- What a good life actually looks like for you
+- Any permanent context about your work or life situation that an AI should always know
+
+---
+
+## The Output
+
+One document. 400–500 words. Written in third person. Clear headings, bullet points within each section. Direct and personal — not a template, not a motivational poster.
+
+It goes straight into your AI settings (Claude: Settings → Profile → User Preferences) and works immediately in every conversation from that point forward.
+
+**Start by answering the single question at the top. Then work through Part 1. I will take it from there.**
+
+--------------------------------------------------------
+  STOP COPYING ABOVE THIS LINE
+--------------------------------------------------------
+
+========================================================
+  Made by Adam — adamreflects.ie
+  A jeweller in Cork, building things with AI in the quiet hours.
+  This is a blank prompt. None of my details are in it — and none of
+  yours leave your screen.
+========================================================
