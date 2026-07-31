@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Claude Field Guide — adamreflects.ie</title>
+<meta name="description" content="What to use, when to use it, and why — no waffle. A field guide for people learning how to get the most out of Claude.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6f1e7;
+  --paper2:#efe8da;
+  --brass:#8a642c;
+  --ink:#1c1a17;
+  --mid:#6b5d4a;
+  --muted:#8a7a5c;
+  --border:#d9cdb0;
+  --green:#4f7a52;
+  --amber:#c58a2e;
+  --rust:#8B4513;
+  --deep:#8B2500;
+  --red:#b85450;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:860px;margin:0 auto;padding:36px 20px 60px}
+
+/* ---------- Header ---------- */
+.mark{
+  width:56px;height:56px;border-radius:50%;
+  border:2px solid var(--brass);
+  margin:0 auto 14px;
+  display:flex;align-items:center;justify-content:center;
+}
+.mark span{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:700;font-size:1.5rem;color:var(--brass)}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);text-align:center;margin-bottom:14px;
+}
+header{text-align:center;margin-bottom:30px}
+h1{
+  font-family:'Fraunces',Georgia,serif;
+  font-weight:400;font-size:2.5rem;line-height:1.15;
+  margin:0 0 10px;color:var(--ink);
+}
+h1 em{font-style:italic;font-weight:700}
+.lede{color:var(--muted);font-size:.95rem;max-width:520px;margin:0 auto;line-height:1.55}
+
+/* ---------- PDF link ---------- */
+.pdf-link{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:18px;padding:9px 18px;
+  border:1px solid var(--border);border-radius:999px;
+  background:var(--paper2);color:var(--brass);
+  font-size:.82rem;font-weight:600;text-decoration:none;
+  transition:border-color .15s,background .15s;
+}
+.pdf-link:hover{border-color:var(--brass);background:#fff}
+
+/* ---------- Tabs ---------- */
+nav{
+  display:flex;gap:6px;margin:28px 0;
+  overflow-x:auto;padding-bottom:6px;
+  -webkit-overflow-scrolling:touch;scrollbar-width:thin;
+}
+nav button{
+  flex-shrink:0;padding:8px 14px;border-radius:8px;
+  border:1px solid var(--border);background:var(--paper2);
+  color:var(--mid);font-family:inherit;font-size:.8rem;font-weight:500;
+  cursor:pointer;white-space:nowrap;transition:all .15s;
+}
+nav button:hover{border-color:var(--brass);color:var(--brass)}
+nav button[aria-selected="true"]{
+  border-color:var(--brass);color:var(--brass);font-weight:700;
+  background:rgba(138,100,44,.09);
+}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+
+/* ---------- Panels ---------- */
+[role="tabpanel"][hidden]{display:none}
+h2{
+  font-family:'Fraunces',Georgia,serif;font-weight:400;
+  font-size:1.6rem;margin:0 0 8px;color:var(--ink);
+}
+h2 em{font-style:italic;font-weight:700}
+h3{
+  font-family:'Fraunces',Georgia,serif;font-weight:700;
+  font-size:1.05rem;margin:0 0 10px;color:var(--ink);
+}
+.desc{color:var(--mid);font-size:.95rem;margin:0 0 20px}
+
+.card{
+  border:1px solid var(--border);border-radius:12px;
+  background:var(--paper2);padding:16px 18px;margin-bottom:14px;
+}
+.card-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.card-name{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.05rem}
+.tag{
+  font-size:.72rem;padding:2px 9px;border-radius:6px;
+  font-weight:600;letter-spacing:.03em;
+}
+.label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.66rem;font-weight:500;text-transform:uppercase;
+  letter-spacing:.08em;margin-bottom:4px;
+}
+.body{font-size:.9rem;color:var(--mid)}
+.example{
+  margin-top:12px;padding:10px 14px;background:var(--paper);
+  border-radius:8px;border-left:3px solid var(--brass);
+}
+.example .body{color:var(--ink)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:10px 0}
+@media(max-width:560px){.two-col{grid-template-columns:1fr}}
+.good{color:var(--green)}
+.bad{color:var(--red)}
+
+.tip,.info{
+  display:flex;gap:10px;align-items:flex-start;
+  padding:12px 16px;border-radius:10px;
+  background:var(--paper2);border:1px solid var(--border);
+  font-size:.88rem;color:var(--mid);margin-bottom:20px;
+}
+.info{display:block;margin:20px 0 0}
+.warn{
+  padding:12px 16px;border-radius:10px;margin-bottom:18px;
+  background:rgba(197,138,46,.10);border:1px solid rgba(197,138,46,.35);
+  font-size:.85rem;color:var(--mid);
+}
+.alert{
+  padding:13px 16px;border-radius:10px;margin-top:12px;
+  background:rgba(139,37,0,.07);border:1px solid rgba(139,37,0,.22);
+  font-size:.88rem;color:var(--mid);
+}
+strong{color:var(--ink);font-weight:600}
+
+/* ---------- Model accordions ---------- */
+details{
+  border:1px solid var(--border);border-radius:12px;
+  background:var(--paper2);margin-bottom:10px;overflow:hidden;
+}
+details[open]{border-color:rgba(138,100,44,.4)}
+summary{
+  padding:14px 18px;cursor:pointer;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+}
+summary::-webkit-details-marker{display:none}
+.sum-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.sum-right{display:flex;align-items:center;gap:14px;flex-shrink:0}
+.price{font-size:.74rem;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.chev{color:var(--muted);font-size:.7rem;transition:transform .2s}
+details[open] .chev{transform:rotate(180deg)}
+.details-body{padding:0 18px 18px;border-top:1px solid var(--border)}
+.details-body>div{margin-top:14px}
+@media(max-width:560px){.price{display:none}}
+
+/* ---------- Chips ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 12px}
+.chip{
+  font-size:.78rem;padding:4px 10px;border-radius:6px;
+  background:var(--paper);color:var(--mid);
+}
+
+/* ---------- Drain list ---------- */
+.rows{margin-bottom:20px}
+.row{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:9px 4px;border-bottom:1px solid var(--border);font-size:.9rem;
+}
+.row span:first-child{color:var(--mid)}
+.row span:last-child{font-size:.78rem;font-weight:600;flex-shrink:0}
+
+/* ---------- Plans ---------- */
+.plan-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:10px}
+.plan-name{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.05rem}
+.plan-price{font-weight:700;color:var(--ink);font-size:.95rem}
+.plan-note{font-size:.8rem;color:var(--muted);font-style:italic;margin-top:6px}
+
+/* ---------- Cheat sheet ---------- */
+.matrix{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--paper2);margin-bottom:20px}
+.matrix-head{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.matrix-head .card-name{font-size:1.1rem}
+.effort-block{padding:12px 18px;border-bottom:1px solid rgba(217,205,176,.5)}
+.effort-block:last-child{border-bottom:none}
+.effort-label{display:flex;align-items:baseline;gap:12px;margin-bottom:8px}
+.effort-label b{font-size:.85rem;min-width:58px}
+.effort-label i{
+  font-family:'JetBrains Mono',monospace;font-style:normal;
+  font-size:.64rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;
+}
+.matrix ul{margin:0;padding-left:16px;list-style:none}
+.matrix li{font-size:.86rem;color:var(--mid);margin-bottom:5px;position:relative;line-height:1.5}
+.matrix li::before{content:"•";position:absolute;left:-14px;color:var(--brass)}
+.matrix li.dim{color:var(--muted);font-style:italic}
+.tree{
+  padding:16px 18px;border:1px solid var(--border);
+  border-radius:12px;background:var(--paper);font-size:.9rem;color:var(--mid);line-height:1.95;
+}
+
+footer{
+  margin-top:44px;padding-top:20px;border-top:1px solid var(--border);
+  text-align:center;font-size:.74rem;color:var(--muted);letter-spacing:.05em;
+}
+footer a{color:var(--brass);text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="mark"><span>ar</span></div>
+  <div class="eyebrow">from adamreflects.ie</div>
+  <h1>The Claude <em>Field Guide</em></h1>
+  <p class="lede">What to use, when to use it, and why — no waffle. A field guide for people learning how to get the most out of Claude.</p>
+  <a class="pdf-link" href="/downloads/claude-field-guide.pdf">Download the PDF</a>
+</header>
+
+<nav role="tablist" aria-label="Guide sections">
+  <button role="tab" id="tab-models" aria-controls="panel-models" aria-selected="true">🧠 Models</button>
+  <button role="tab" id="tab-effort" aria-controls="panel-effort" aria-selected="false">⚡ Effort Levels</button>
+  <button role="tab" id="tab-credits" aria-controls="panel-credits" aria-selected="false">💰 Plans &amp; Usage</button>
+  <button role="tab" id="tab-surfaces" aria-controls="panel-surfaces" aria-selected="false">💬 Chat vs Cowork</button>
+  <button role="tab" id="tab-projects" aria-controls="panel-projects" aria-selected="false">📁 Projects</button>
+  <button role="tab" id="tab-artifacts" aria-controls="panel-artifacts" aria-selected="false">🔧 Artifacts</button>
+  <button role="tab" id="tab-scheduled" aria-controls="panel-scheduled" aria-selected="false">⏰ Automation</button>
+  <button role="tab" id="tab-cheatsheet" aria-controls="panel-cheatsheet" aria-selected="false">🎯 Cheat Sheet</button>
+</nav>
+
+<!-- ================= MODELS ================= -->
+<section role="tabpanel" id="panel-models" aria-labelledby="tab-models">
+  <h2>Which <em>Model</em> Should I Use?</h2>
+  <p class="desc">Think of these as four levels of expertise. You wouldn't hire a barrister to post a letter, and you wouldn't ask a temp to handle your tax return. <strong>The model decides how smart the thinking is.</strong> Effort (next tab) decides how long it thinks.</p>
+
+  <div class="tip"><span>💡</span><span><strong>Rule of thumb:</strong> Start with Sonnet 5 for everyday work. Step up to Opus 5 when you need serious analysis. Fable 5 is rarely needed by most people.</span></div>
+
+  <details>
+    <summary>
+      <span class="sum-left">
+        <span class="dot" style="background:#4f7a52"></span>
+        <span class="card-name">Haiku 4.5</span>
+        <span class="tag" style="background:rgba(79,122,82,.16);color:#4f7a52">Budget</span>
+      </span>
+      <span class="sum-right"><span class="price">~€0.90 / €4.50 / MTok</span><span class="chev">▼</span></span>
+    </summary>
+    <div class="details-body">
+      <div><div class="label" style="color:var(--muted)">Context window</div><div class="body" style="color:var(--ink)">200K tokens (~150,000 words)</div></div>
+      <div><div class="label good">✓ Use for</div><div class="body">Quick questions, translations, formatting, tagging, simple lookups, yes/no answers</div></div>
+      <div><div class="label bad">✗ Skip when</div><div class="body">Complex reasoning, long documents, hard coding problems</div></div>
+      <div class="example" style="border-left-color:#4f7a52"><div class="label" style="color:#4f7a52">Examples</div><div class="body">"What's the capital of Portugal?" · "Fix this typo" · "Convert this to a bullet list" · "Is this email spam or not?"</div></div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="sum-left">
+        <span class="dot" style="background:#8a642c"></span>
+        <span class="card-name">Sonnet 5</span>
+        <span class="tag" style="background:rgba(138,100,44,.16);color:#8a642c">Default — Start Here</span>
+      </span>
+      <span class="sum-right"><span class="price">~€1.80 / €9* / MTok</span><span class="chev">▼</span></span>
+    </summary>
+    <div class="details-body">
+      <div><div class="label" style="color:var(--muted)">Context window</div><div class="body" style="color:var(--ink)">1M tokens (~750,000 words)</div></div>
+      <div><div class="label good">✓ Use for</div><div class="body">Everyday writing, analysis, research, brainstorming, most coding, summarising — handles 80–90% of everything you'll ask</div></div>
+      <div><div class="label bad">✗ Skip when</div><div class="body">Only the hardest multi-step problems where Opus would genuinely do better</div></div>
+      <div class="example"><div class="label" style="color:var(--brass)">Examples</div><div class="body">"Write a blog post about remote work" · "Help me plan a holiday" · "Draft a cover letter" · "Summarise this PDF"</div></div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="sum-left">
+        <span class="dot" style="background:#8B4513"></span>
+        <span class="card-name">Opus 5</span>
+        <span class="tag" style="background:rgba(139,69,19,.16);color:#8B4513">Flagship — New</span>
+      </span>
+      <span class="sum-right"><span class="price">~€4.50 / €22.50 / MTok</span><span class="chev">▼</span></span>
+    </summary>
+    <div class="details-body">
+      <div><div class="label" style="color:var(--muted)">Context window</div><div class="body" style="color:var(--ink)">1M tokens (~750,000 words)</div></div>
+      <div><div class="label good">✓ Use for</div><div class="body">Complex analysis, deep debugging, dense legal/financial documents, multi-step reasoning. Near-Fable 5 capability at half the price. Now the default on Max.</div></div>
+      <div><div class="label bad">✗ Skip when</div><div class="body">Simple questions or short emails — overkill and wastes your usage</div></div>
+      <div class="example" style="border-left-color:#8B4513"><div class="label" style="color:#8B4513">Examples</div><div class="body">"Analyse this 100-page contract" · "Compare 5 business strategies in detail" · "Debug this complex system" · "Deep research on a topic"</div></div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="sum-left">
+        <span class="dot" style="background:#8B2500"></span>
+        <span class="card-name">Fable 5</span>
+        <span class="tag" style="background:rgba(139,37,0,.14);color:#8B2500">Top Tier</span>
+      </span>
+      <span class="sum-right"><span class="price">~€9 / €45 / MTok</span><span class="chev">▼</span></span>
+    </summary>
+    <div class="details-body">
+      <div><div class="label" style="color:var(--muted)">Context window</div><div class="body" style="color:var(--ink)">1M tokens (~750,000 words)</div></div>
+      <div><div class="label good">✓ Use for</div><div class="body">The absolute hardest, highest-stakes work. State-of-the-art capability. Where quality is non-negotiable.</div></div>
+      <div><div class="label bad">✗ Skip when</div><div class="body">Anything Opus 5 handles well (which is now most things). 2× cost — rarely needed by everyday users. Charged via usage credits.</div></div>
+      <div class="example" style="border-left-color:#8B2500"><div class="label" style="color:#8B2500">Examples</div><div class="body">"Coordinate a multi-agent codebase analysis" · "Solve this advanced research problem" · The hardest tasks you can think of</div></div>
+    </div>
+  </details>
+
+  <div class="info"><strong>What's a token?</strong><br>A token is roughly ¾ of a word. So 1,000 tokens ≈ 750 words. A typical email is ~200–400 tokens. A full A4 page of text is ~500–700 tokens. Claude reads your message (input tokens) and writes a reply (output tokens) — both count toward your usage.</div>
+</section>
+
+<!-- ================= EFFORT ================= -->
+<section role="tabpanel" id="panel-effort" aria-labelledby="tab-effort" hidden>
+  <h2><em>Effort</em> Levels — How Hard Claude Thinks</h2>
+  <p class="desc">The model is <em>who</em> you hired. Effort is <em>how long you let them think</em> before answering. Higher effort = more "thinking tokens" used = better answers on hard problems, but slower and uses more of your plan.</p>
+
+  <div class="tip"><span>💡</span><span><strong>Where to find it:</strong> The effort slider is next to the model selector in claude.ai. You can change it mid-conversation. Default is High.</span></div>
+
+  <div class="card">
+    <div class="card-head" style="justify-content:space-between">
+      <span class="sum-left"><span class="dot" style="background:#4f7a52"></span><span class="card-name">Low</span></span>
+      <span class="sum-left"><span class="chip">Fastest</span><span class="tag" style="background:rgba(79,122,82,.16);color:#4f7a52">Lowest usage</span></span>
+    </div>
+    <div class="label" style="color:var(--muted)">~1,000 thinking tokens</div>
+    <p class="body" style="margin:6px 0 10px">Simple, obvious answers with one clear result. No ambiguity.</p>
+    <div class="chips"><span class="chip">"Fix this typo"</span><span class="chip">"What's 15% of €340?"</span><span class="chip">"What day is Christmas?"</span><span class="chip">"Convert cm to inches"</span></div>
+    <div class="example" style="border-left-color:#4f7a52"><div class="body" style="color:var(--ink)">Use when there's one clear right answer. No need for Claude to ponder a spelling correction.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" style="justify-content:space-between">
+      <span class="sum-left"><span class="dot" style="background:#8a642c"></span><span class="card-name">Medium</span></span>
+      <span class="sum-left"><span class="chip">Fast</span><span class="tag" style="background:rgba(138,100,44,.16);color:#8a642c">Moderate usage</span></span>
+    </div>
+    <div class="label" style="color:var(--muted)">~2,000–5,000 thinking tokens</div>
+    <p class="body" style="margin:6px 0 10px">Tasks needing some judgment or organisation. Moderate complexity.</p>
+    <div class="chips"><span class="chip">"Write a thank-you email"</span><span class="chip">"Summarise this article"</span><span class="chip">"Suggest birthday gift ideas"</span><span class="chip">"Rewrite this in a friendlier tone"</span></div>
+    <div class="example"><div class="body" style="color:var(--ink)">Good for everyday writing and moderate tasks. Saves usage compared to High with minimal quality difference on simpler work.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" style="justify-content:space-between">
+      <span class="sum-left"><span class="dot" style="background:#8B4513"></span><span class="card-name">High (Default)</span></span>
+      <span class="sum-left"><span class="chip">Moderate</span><span class="tag" style="background:rgba(139,69,19,.16);color:#8B4513">Higher usage</span></span>
+    </div>
+    <div class="label" style="color:var(--muted)">~8,000–16,000 thinking tokens</div>
+    <p class="body" style="margin:6px 0 10px">Complex reasoning, detailed writing, multi-step problems. This is the default — leave it here unless you have a reason to change.</p>
+    <div class="chips"><span class="chip">"Write a detailed business plan"</span><span class="chip">"Plan my 2-week holiday"</span><span class="chip">"Help me negotiate a salary"</span><span class="chip">"Build this website feature"</span></div>
+    <div class="example" style="border-left-color:#8B4513"><div class="body" style="color:var(--ink)">The default for good reason. Handles most work well. Don't overthink it — just leave it here for general use.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" style="justify-content:space-between">
+      <span class="sum-left"><span class="dot" style="background:#8B2500"></span><span class="card-name">Max / Extended</span></span>
+      <span class="sum-left"><span class="chip">Slowest</span><span class="tag" style="background:rgba(139,37,0,.14);color:#8B2500">Highest usage</span></span>
+    </div>
+    <div class="label" style="color:var(--muted)">Up to 100,000+ thinking tokens</div>
+    <p class="body" style="margin:6px 0 10px">Genuinely hard problems. Deep analysis, complex debugging, architecture planning, the hardest reasoning tasks.</p>
+    <div class="chips"><span class="chip">"Analyse this contract for hidden risks"</span><span class="chip">"Design a complete business model"</span><span class="chip">"Find the root cause of this bug"</span><span class="chip">"Compare 10 insurance policies"</span></div>
+    <div class="example" style="border-left-color:#8B2500"><div class="body" style="color:var(--ink)">Only when the problem is genuinely complex. Using Max on a simple question burns 10× the usage for zero benefit.</div></div>
+  </div>
+
+  <div class="alert"><strong style="color:#8B2500">Usage impact:</strong> A Max-effort question can use 10× more of your plan than the same question at Low. Don't leave it on Max for casual chat.</div>
+</section>
+
+<!-- ================= CREDITS ================= -->
+<section role="tabpanel" id="panel-credits" aria-labelledby="tab-credits" hidden>
+  <h2>Plans, <em>Usage</em> &amp; What Eats Your Allowance</h2>
+  <p class="desc">Your subscription gives you a pool of usage that resets every 5 hours. Think of it like mobile data — some things drain it fast, others barely register.</p>
+
+  <div class="card">
+    <div class="plan-top"><span class="plan-name" style="color:var(--muted)">Free</span><span class="plan-price">€0</span></div>
+    <div class="body">Limited daily messages on Sonnet. Good for trying Claude. You'll hit limits quickly.</div>
+    <div class="plan-note">~15–40 messages per 5-hr window (short messages). Varies with length.</div>
+  </div>
+
+  <div class="card">
+    <div class="plan-top"><span class="plan-name" style="color:var(--brass)">Pro</span><span class="plan-price">~€18/mo</span></div>
+    <div class="body">The sweet spot for most people. All models, Cowork, Projects, web search, memory. Opus 5 available. Resets every 5 hours.</div>
+    <div class="plan-note">~45–80 short messages per 5-hr window on Sonnet, or ~300K–500K input tokens. Fewer with Opus. Weekly cap on top.</div>
+  </div>
+
+  <div class="card">
+    <div class="plan-top"><span class="plan-name" style="color:#8B4513">Max 5×</span><span class="plan-price">~€90/mo</span></div>
+    <div class="body">5× the Pro usage. Opus 5 is the default here. For people who use Claude all day.</div>
+    <div class="plan-note">~5× Pro allowance per window. Estimated ~225–400 messages per window on Sonnet.</div>
+  </div>
+
+  <div class="card">
+    <div class="plan-top"><span class="plan-name" style="color:#8B2500">Max 20×</span><span class="plan-price">~€180/mo</span></div>
+    <div class="body">20× Pro. For heavy power users running agents, coding all day, etc.</div>
+    <div class="plan-note">~20× Pro. Hard to exhaust by typing. ~22M+ Sonnet tokens/month equivalent.</div>
+  </div>
+
+  <div class="warn"><strong style="color:#8B6914">⚠ Important:</strong> Anthropic does not publish exact token quotas — they use multipliers (1×, 5×, 20×) and say usage varies by message length, files, model, and effort. The numbers above are community estimates and rough guidance, not guarantees. Check Settings → Usage in Claude for your real remaining allowance. Prices billed in USD; euro amounts are approximate conversions.</div>
+
+  <h3>What drains your usage fastest?</h3>
+  <div class="rows">
+    <div class="row"><span>Bigger model (Fable &gt; Opus &gt; Sonnet &gt; Haiku)</span><span style="color:#8B2500">Very High</span></div>
+    <div class="row"><span>Higher effort level (Max vs Low)</span><span style="color:#8B2500">Very High</span></div>
+    <div class="row"><span>Long conversations (message 50 costs far more than message 5)</span><span style="color:#b85450">High</span></div>
+    <div class="row"><span>Research mode / deep research</span><span style="color:#b85450">High</span></div>
+    <div class="row"><span>Large file uploads in context</span><span style="color:#c58a2e">Moderate</span></div>
+    <div class="row"><span>Web search</span><span style="color:#4f7a52">Low</span></div>
+    <div class="row"><span>Starting a fresh chat (resets context size)</span><span style="color:#4f7a52">Saves usage</span></div>
+  </div>
+
+  <div class="info" style="margin-top:0;margin-bottom:14px"><strong>What's a token in real terms?</strong><br>1 token ≈ ¾ of a word. A short email ≈ 200–400 tokens. A full A4 page ≈ 500–700 tokens. A 10-page report ≈ 5,000–7,000 tokens. Claude's reply also uses tokens, and at higher effort levels, invisible "thinking tokens" are used too — all counts.</div>
+  <div class="info" style="margin-top:0"><strong>Usage credits (overflow):</strong> Hit your limit and can't wait? Enable usage credits in Settings → Usage. You keep going at pay-as-you-go API rates with a monthly spending cap you control.</div>
+</section>
+
+<!-- ================= SURFACES ================= -->
+<section role="tabpanel" id="panel-surfaces" aria-labelledby="tab-surfaces" hidden>
+  <h2><em>Chat</em> vs Cowork vs Code</h2>
+  <p class="desc">Three different surfaces, three different jobs. They all use the same Claude models — the difference is what Claude can <em>access and do</em>.</p>
+
+  <div class="card">
+    <div class="card-head"><span class="dot" style="background:#8a642c"></span><span class="card-name">Chat</span></div>
+    <div class="label" style="color:var(--muted)">What it is</div>
+    <div class="body">The conversation interface on claude.ai, the mobile app, or the desktop app. You type, Claude responds. Can search the web, create files, build interactive tools, connect to apps.</div>
+    <div class="two-col">
+      <div><div class="label good">✓ Use for</div><div class="body">Most things. Questions, writing, research, creating documents, getting advice, learning.</div></div>
+      <div><div class="label bad">✗ Not for</div><div class="body">Multi-step file work on your computer, or automated recurring tasks.</div></div>
+    </div>
+    <div class="example"><div class="label" style="color:var(--brass)">Examples</div><div class="body">Writing emails, blog posts, plans · Analysing documents · Getting advice · Creating spreadsheets, reports.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="dot" style="background:#8B4513"></span><span class="card-name">Cowork</span></div>
+    <div class="label" style="color:var(--muted)">What it is</div>
+    <div class="body">Claude as a desktop coworker. Reads/writes files autonomously. Runs scheduled tasks. Connects to apps. Builds live dashboards.</div>
+    <div class="two-col">
+      <div><div class="label good">✓ Use for</div><div class="body">Delegating work: file processing, reports, dashboards, automation, morning briefings.</div></div>
+      <div><div class="label bad">✗ Not for</div><div class="body">Quick questions — Chat is faster.</div></div>
+    </div>
+    <div class="example" style="border-left-color:#8B4513"><div class="label" style="color:#8B4513">Examples</div><div class="body">"Update all filenames in this folder" · "Build a dashboard" · "Process these invoices" · Automated morning briefings.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="dot" style="background:#8B2500"></span><span class="card-name">Code</span></div>
+    <div class="label" style="color:var(--muted)">What it is</div>
+    <div class="body">A terminal-based coding agent for professional developers. Sees your codebase, writes code, runs commands, manages git. You won't need this unless you're a developer.</div>
+    <div class="two-col">
+      <div><div class="label good">✓ Use for</div><div class="body">Professional software development.</div></div>
+      <div><div class="label bad">✗ Not for</div><div class="body">Non-coding tasks. If you're not in a terminal, this isn't for you.</div></div>
+    </div>
+    <div class="example" style="border-left-color:#8B2500"><div class="label" style="color:#8B2500">Examples</div><div class="body">Building web apps · Refactoring codebases · Running tests.</div></div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section role="tabpanel" id="panel-projects" aria-labelledby="tab-projects" hidden>
+  <h2><em>Projects</em> — Persistent Workspaces</h2>
+  <p class="desc">A Project is a walled-off workspace with its own files, instructions, and conversation history. Every new chat inside that project starts with full context — so you don't re-explain things every session.</p>
+
+  <div class="card">
+    <h3>When to use a Project</h3>
+    <div class="body">Use a project when you have a <strong>recurring topic</strong> with context that doesn't change much between sessions. Upload files and instructions once — every new chat inherits them automatically.</div>
+    <div class="body" style="margin-top:12px"><strong>Good examples:</strong> Your business brand guidelines · A subject you're studying · A client you work with regularly · Your CV and job applications · Planning a wedding or event · Managing a rental property</div>
+  </div>
+
+  <div class="card">
+    <h3>When NOT to use a Project</h3>
+    <div class="body">Don't create one for one-off questions. Project files eat context window space. Regular chat with memory is simpler for everyday use.</div>
+  </div>
+
+  <div class="tip"><span>💡</span><span><strong>Projects vs Memory:</strong> Memory remembers things about <em>you</em> across all chats automatically. Projects remember things about a <em>topic</em> — only within that project. Use both.</span></div>
+</section>
+
+<!-- ================= ARTIFACTS ================= -->
+<section role="tabpanel" id="panel-artifacts" aria-labelledby="tab-artifacts" hidden>
+  <h2><em>Artifacts</em> vs Live Artifacts</h2>
+  <p class="desc">An artifact is <em>what Claude produces for you</em> — not just text in the chat, but an actual rendered thing you can see, interact with, download, or share.</p>
+
+  <div class="card">
+    <div class="card-head"><span class="dot" style="background:#8a642c"></span><span class="card-name">Artifact (Standard)</span></div>
+    <div class="body">A standalone piece of content in a side panel: a document, web app, chart, tool, game, recipe card — anything worth seeing rendered rather than as plain text.</div>
+    <div style="margin-top:10px"><div class="label good">When to use</div><div class="body">Any time Claude produces something you'd want to preview, edit, download, or share.</div></div>
+    <div style="margin-top:10px"><div class="label" style="color:var(--brass)">Key difference</div><div class="body">It's a snapshot you iterate on in conversation. Can be published and shared via link — no Claude account needed to view.</div></div>
+    <div class="example"><div class="label" style="color:var(--brass)">Examples</div><div class="body">A working calculator · A formatted CV · An interactive quiz · A meal planner · A budget tracker · A comparison chart</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="dot" style="background:#8B4513"></span><span class="card-name">Live Artifact</span></div>
+    <div class="body">A persistent dashboard that refreshes with current data every time you open it. Built in Cowork, saved in your sidebar. Pulls live data from connected apps.</div>
+    <div style="margin-top:10px"><div class="label good">When to use</div><div class="body">You want a dashboard that stays current without re-prompting. Something you open daily and it shows today's numbers.</div></div>
+    <div style="margin-top:10px"><div class="label" style="color:#8B4513">Key difference</div><div class="body">Standard artifacts = frozen snapshots. Live artifacts = today's data today. Desktop-app only. Version history saved automatically.</div></div>
+    <div class="example" style="border-left-color:#8B4513"><div class="label" style="color:#8B4513">Examples</div><div class="body">A sales dashboard · An email summary that refreshes each morning · A project tracker · A calendar overview</div></div>
+  </div>
+</section>
+
+<!-- ================= SCHEDULED ================= -->
+<section role="tabpanel" id="panel-scheduled" aria-labelledby="tab-scheduled" hidden>
+  <h2>Scheduled Tasks &amp; <em>Dispatch</em></h2>
+  <p class="desc">Automation features inside Cowork. They make Claude do work <em>without you sitting there watching</em>.</p>
+
+  <div class="card" style="border-color:var(--brass);background:rgba(138,100,44,.07)">
+    <div class="card-head"><span style="font-size:1.2rem">⏰</span><span class="card-name">Scheduled Tasks</span></div>
+    <div class="body">Set a task to run automatically at a time you choose. Give it a prompt, connect the tools it needs, pick the schedule. Claude runs it and the results are waiting when you arrive.</div>
+    <div class="body" style="margin-top:12px"><strong>Examples:</strong> A morning email digest at 7:30am · A weekly sales summary every Friday · A daily calendar briefing</div>
+  </div>
+
+  <div class="card" style="border-color:#8B4513;background:rgba(139,69,19,.07)">
+    <div class="card-head"><span style="font-size:1.2rem">📱</span><span class="card-name">Dispatch</span></div>
+    <div class="body">A remote trigger. Type a prompt on your phone → it fires into a full Cowork session on your computer. Same files, same context, same apps. Your laptop needs to be awake.</div>
+    <div class="body" style="margin-top:12px"><strong>Think of it this way:</strong> Scheduled = set a timer. Dispatch = press a button from anywhere.</div>
+  </div>
+
+  <div class="info" style="margin-top:0"><strong>Routines (newer):</strong> Cloud-hosted automation that runs even when your laptop is closed. Good for tasks that must fire 24/7 regardless of whether your machine is on.</div>
+</section>
+
+<!-- ================= CHEAT SHEET ================= -->
+<section role="tabpanel" id="panel-cheatsheet" aria-labelledby="tab-cheatsheet" hidden>
+  <h2>The <em>Cheat Sheet</em></h2>
+  <p class="desc">Every model at every effort level, with real examples of when to use each combination. Cells with "rarely" or "don't" mean that combo is inefficient — pick a better fit.</p>
+
+  <div class="matrix">
+    <div class="matrix-head" style="background:rgba(79,122,82,.12)"><span class="dot" style="background:#4f7a52"></span><span class="card-name" style="color:#4f7a52">Haiku 4.5</span></div>
+    <div class="effort-block"><div class="effort-label"><b>Low</b><i>Effort</i></div><ul style="--b:#4f7a52">
+      <li>"What's the capital of Peru?"</li><li>"Convert 50°F to Celsius"</li><li>"Translate 'hello' to Italian"</li></ul></div>
+    <div class="effort-block"><div class="effort-label"><b>Medium</b><i>Effort</i></div><ul>
+      <li>"Summarise this short article in 3 bullets"</li><li>"Tag these 20 emails as urgent or not"</li><li>"Format this list as a clean table"</li></ul></div>
+    <div class="effort-block"><div class="effort-label"><b>High</b><i>Effort</i></div><ul>
+      <li class="dim">Rarely needed — if you need High effort, step up to Sonnet. Haiku isn't built for deep thinking.</li><li class="dim">You'd use Haiku High for bulk tagging where quality matters slightly more.</li><li class="dim">Not a common combo.</li></ul></div>
+    <div class="effort-block"><div class="effort-label"><b>Max</b><i>Effort</i></div><ul>
+      <li class="dim">Don't do this. Max effort on a budget model wastes both time and usage.</li><li class="dim">Step up to Sonnet or Opus instead.</li></ul></div>
+  </div>
+
+  <div class="matrix">
+    <div class="matrix-head" style="background:rgba(138,100,44,.12)"><span class="dot" style="background:#8a642c"></span><span class="card-name" style="color:#8a642c">Sonnet 5</span></div>
+    <div class="effort-block"><div class="effort-label"><b>Low</b><i>Effort</i></div><ul>
+      <li>"What's a good pun about coffee?"</li><li>"Suggest a name for my cat"</li><li>"What time is it in Sydney?"</li></ul></div>
+    <div class="effort-block"><div class="effort-label"><b>Medium</b><i>Effort</i></div><ul>
+      <li>"Write a thank-you email to my landlord"</li><li>"Rewrite my CV bullet points"</li><li>"Suggest 10 birthday gifts for a 12-year-old"</li></ul></div>
+    <div class="effort-block"><div class="effort-label"><b>High</b><i>Effort</i></div><ul>
+      <li>"Plan a 5-day trip to Portugal with a €1500 budget"</li><li>"Write a 1000-word blog post on sustainable fashion"</li><li>"Help me negotiate my salary — here's the offer"</li></ul></div>
+    <div class="effort-block"><div class="effort-label"><b>Max</b><i>Effort</i></div><ul>
+      <li>"Draft a full business plan for my café idea"</li><li>"Debug why this Firestore query fails intermittently"</li><li>"Design a marketing strategy for a new product launch"</li></ul></div>
+  </div>
+
+  <div class="matrix">
+    <div class="matrix-head" style="background:rgba(139,69,19,.12)"><span class="dot" style="background:#8B4513"></span><span class="card-name" style="color:#8B4513">Opus 5</span></div>
+    <div class="effort-block"><div class="effort-label"><b>Low</b><i>Effort</i></div><ul>
+      <li class="dim">Rarely worth it — Sonnet Low handles simple tasks just as well at lower cost.</li><li class="dim">Only use if you're already in an Opus conversation and don't want to switch.</li></ul></div>
+    <div class="effort-block"><div class="effort-label"><b>Medium</b><i>Effort</i></div><ul>
+      <li>"Read this 30-page report and give me the key findings"</li><li>"Compare these 3 vendor proposals"</li><li>"Rewrite this legal clause more clearly"</li></ul></div>
+    <div class="effort-block"><div class="effort-label"><b>High</b><i>Effort</i></div><ul>
+      <li>"Analyse this rental lease for anything I should worry about"</li><li>"Review my full business strategy and stress-test it"</li><li>"Explain this dense scientific paper"</li></ul></div>
+    <div class="effort-block"><div class="effort-label"><b>Max</b><i>Effort</i></div><ul>
+      <li>"Review this 80-page contract and flag all risks"</li><li>"Compare 10 mortgage offers with full financial modelling"</li><li>"Design a complete database schema for my app"</li></ul></div>
+  </div>
+
+  <div class="matrix">
+    <div class="matrix-head" style="background:rgba(139,37,0,.10)"><span class="dot" style="background:#8B2500"></span><span class="card-name" style="color:#8B2500">Fable 5</span></div>
+    <div class="effort-block"><div class="effort-label"><b>Low</b><i>Effort</i></div><ul>
+      <li class="dim">Don't. You're paying premium for a task that doesn't need it.</li><li class="dim">Fable's value is in hard reasoning, not quick answers.</li></ul></div>
+    <div class="effort-block"><div class="effort-label"><b>Medium</b><i>Effort</i></div><ul>
+      <li class="dim">Rarely needed. Opus 5 Medium is nearly always sufficient.</li><li class="dim">Only for high-stakes work where quality is non-negotiable.</li></ul></div>
+    <div class="effort-block"><div class="effort-label"><b>High</b><i>Effort</i></div><ul>
+      <li>"Coordinate a multi-source competitive intelligence report"</li><li>"Untangle this complex family estate situation"</li><li>"Deep due diligence on this acquisition target"</li></ul></div>
+    <div class="effort-block"><div class="effort-label"><b>Max</b><i>Effort</i></div><ul>
+      <li>"Solve this novel research problem from scratch"</li><li>"Multi-agent analysis of an entire codebase"</li><li>The hardest, highest-stakes work — where €45 per MTok is justified.</li></ul></div>
+  </div>
+
+  <div class="tree">
+    <h3>The <em style="font-style:italic">Simple Decision Tree</em></h3>
+    <strong>1. Quick, simple question?</strong> → Haiku or Sonnet + Low effort<br>
+    <strong>2. Writing, planning, or moderate thinking?</strong> → Sonnet + Medium effort<br>
+    <strong>3. Detailed work (long writing, strategy)?</strong> → Sonnet + High effort (default)<br>
+    <strong>4. Sonnet not cutting it?</strong> → Step up to Opus 5<br>
+    <strong>5. Genuinely the hardest problem?</strong> → Opus 5 + Max effort (Fable rarely needed)<br>
+    <strong>6. Should it happen automatically?</strong> → Cowork + Scheduled Task<br>
+    <strong>7. Need a dashboard that stays current?</strong> → Cowork + Live Artifact<br>
+    <strong>8. Recurring work with stable context?</strong> → Put it in a Project
+  </div>
+</section>
+
+<footer>
+  <a href="/">adamreflects.ie</a> · The Claude Field Guide · July 2026
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  function show(id){
+    tabs.forEach(function(t){
+      var sel = t.id === 'tab-' + id;
+      t.setAttribute('aria-selected', sel ? 'true' : 'false');
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !sel;
+    });
+    if (history.replaceState) history.replaceState(null, '', '#' + id);
+  }
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ show(t.id.replace('tab-','')); });
+    t.addEventListener('keydown', function(e){
+      var n = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : null;
+      if (n === null) return;
+      e.preventDefault();
+      var next = tabs[(n + tabs.length) % tabs.length];
+      next.focus();
+      show(next.id.replace('tab-',''));
+    });
+  });
+  var hash = (location.hash || '').replace('#','');
+  if (hash && document.getElementById('tab-' + hash)) show(hash);
+})();
+</script>
+</body>
+</html>
