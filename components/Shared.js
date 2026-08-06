@@ -16,7 +16,6 @@ const NAV_ITEMS = [
   { href: "/games", label: "Games" },
   { href: "/business", label: "Business" },
   { href: "/lab", label: "Hobbies" },
-  { href: "/other", label: "Other" },
 ];
 
 export function Topbar() {
