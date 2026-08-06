@@ -83,8 +83,8 @@ export default function HomePage() {
           <div className="about-side">
             <h4>The ledger</h4>
             <ul>
-              <li><span>Things built</span><span>17</span></li>
-              <li><span>Ready to use</span><span>11</span></li>
+              <li><span>Things built</span><span>16</span></li>
+              <li><span>Ready to use</span><span>10</span></li>
               <li><span>Still cooking</span><span>3</span></li>
               <li><span>Parked (learned plenty)</span><span>1</span></li>
               <li><span>Just for me</span><span>2</span></li>
