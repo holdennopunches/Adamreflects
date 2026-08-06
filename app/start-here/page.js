@@ -159,15 +159,16 @@ export default function StartHerePage() {
             <div className="sh-num">4</div>
             <div className="sh-body">
               <span className="sh-plus">
-                Power-up: Ask me questions first
+                Power-up: ask for questions first
               </span>
-              <h3>Toggle &quot;Ask me questions first&quot;</h3>
+              <h3>Ask for questions first</h3>
               <p>
-                If you only do one extra thing, do this one. The AI asks
-                clarifying questions before it starts, tailors the answer
-                to your real need, and{" "}
-                <strong>the result is often twice as good.</strong> It
-                takes one toggle.
+                Tell Claude to ask before it starts. Add a line like
+                &quot;ask me clarifying questions before you begin&quot; to
+                your prompt — or better, bake it into your Personal
+                Constitution so it applies everywhere. Claude will check its
+                assumptions with you instead of guessing, and{" "}
+                <strong>the result is often twice as good.</strong>
               </p>
             </div>
           </div>
