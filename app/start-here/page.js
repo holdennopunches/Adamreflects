@@ -57,9 +57,15 @@ export default function StartHerePage() {
                 without you asking. You flip it on once and it just works
                 in the background.
               </p>
-              <div className="sh-screenshot">
-                📎 Screenshot: Settings → toggle &quot;Generate memory from
-                chat history&quot;
+              <div className="sh-screenshot" style={{ display: "block", borderStyle: "solid" }}>
+                <img
+                  src="/memory-settings-screenshot.png"
+                  alt="Claude settings page — Capabilities tab, showing the Generate memory from chat history toggle switched on"
+                  style={{ maxWidth: "100%", borderRadius: "8px", margin: "12px 0" }}
+                />
+                <div style={{ fontSize: "0.78rem", color: "var(--grey)" }}>
+                  Settings → Capabilities → Generate memory from chat history
+                </div>
               </div>
             </div>
           </div>
