@@ -15,7 +15,7 @@ const NAV_ITEMS = [
   { href: "/health", label: "Health & Life" },
   { href: "/games", label: "Games" },
   { href: "/business", label: "Business" },
-  { href: "/lab", label: "The Lab" },
+  { href: "/lab", label: "Hobbies" },
   { href: "/other", label: "Other" },
 ];
 
