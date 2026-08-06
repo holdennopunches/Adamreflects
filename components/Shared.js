@@ -57,15 +57,43 @@ export function Footer() {
           <span className="mark" />
           Adam Reflects
         </div>
-        <p>
-          Built between customers, in a jewellers in Cork. ·{" "}
-          <a
-            href="mailto:bellejewellerycork@gmail.com"
-            style={{ color: "var(--brass-deep)", fontWeight: 600 }}
-          >
-            bellejewellerycork@gmail.com
-          </a>
-        </p>
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-start" }}>
+          <p>
+            Built between customers, in a jewellers in Cork. ·{" "}
+            <a
+              href="mailto:bellejewellerycork@gmail.com"
+              style={{ color: "var(--brass-deep)", fontWeight: 600 }}
+            >
+              bellejewellerycork@gmail.com
+            </a>
+          </p>
+          <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+            <a
+              href="https://instagram.com/adamreflects"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              style={{ color: "#8A642C", textDecoration: "none", display: "inline-flex" }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none" />
+              </svg>
+            </a>
+            <a
+              href="https://x.com/adamreflects"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="X"
+              style={{ color: "#8A642C", textDecoration: "none", display: "inline-flex" }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.22-6.82-5.96 6.82H1.66l7.73-8.84L1.25 2.25h6.83l4.72 6.23 5.44-6.23Zm-1.16 17.52h1.83L7.02 4.12H5.05l12.03 15.65Z" />
+              </svg>
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   );
