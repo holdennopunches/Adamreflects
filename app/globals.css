@@ -199,7 +199,7 @@
   .tl-panel{overflow:hidden;max-height:0;transition:max-height .3s ease;}
   .tl-month.open .tl-panel{max-height:2600px;}
   .tl-items{padding:0 4px 26px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
-  .tl-item{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 18px 16px;display:flex;flex-direction:column;text-align:left;font-family:inherit;cursor:pointer;transition:transform .16s,box-shadow .16s,border-color .16s;}
+  .tl-item{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 18px 16px;display:flex;flex-direction:column;text-align:left;font-family:inherit;cursor:pointer;text-decoration:none;color:inherit;transition:transform .16s,box-shadow .16s,border-color .16s;}
   .tl-item:hover{transform:translateY(-2px);box-shadow:0 8px 20px var(--shadow);border-color:var(--brass);}
   .tl-item-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px;}
   .tl-item h4{font-family:'Fraunces',serif;font-weight:600;font-size:1.06rem;letter-spacing:-0.01em;line-height:1.2;}
