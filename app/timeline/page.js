@@ -42,6 +42,7 @@ function MonthBlock({ month, isOpen, onToggle }) {
           <CaretIcon />
         </span>
       </button>
+      {month.note && <p className="tl-m-note">{month.note}</p>}
       <div className="tl-panel">
         <div className="tl-items">
           {month.items.map((it, i) =>
