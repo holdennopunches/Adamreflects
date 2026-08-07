@@ -62,7 +62,7 @@ export function Footer() {
             Built between customers, in a jewellers in Cork. ·{" "}
             <a
               href="mailto:bellejewellerycork@gmail.com"
-              style={{ color: "var(--brass-deep)", fontWeight: 600 }}
+              style={{ color: "var(--brass-deep)", fontWeight: 600, textDecoration: "none" }}
             >
               bellejewellerycork@gmail.com
             </a>
