@@ -14,7 +14,7 @@
 
   header.topbar{position:sticky;top:0;z-index:50;background:rgba(246,241,231,0.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
   .topbar-inner{max-width:1080px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
-  .brand{font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;letter-spacing:-0.01em;display:flex;align-items:center;gap:9px;cursor:pointer;background:none;border:none;text-decoration:none;color:inherit;}
+  .brand{font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;letter-spacing:-0.01em;display:flex;align-items:center;gap:9px;cursor:pointer;background:var(--paper-2);border:none;border-radius:20px;padding:6px 16px 6px 8px;text-decoration:none;color:inherit;}
   .brand .mark{width:26px;height:26px;border-radius:50%;display:inline-block;background-image:var(--ar-logo);background-size:cover;background-position:center;flex-shrink:0;}
   nav.tabs{display:flex;gap:4px;flex-wrap:wrap;}
   nav.tabs a{font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:500;color:var(--ink-soft);background:transparent;border:none;cursor:pointer;padding:7px 13px;border-radius:20px;transition:all .18s ease;text-decoration:none;display:inline-block;}
