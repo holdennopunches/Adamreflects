@@ -187,6 +187,7 @@
   .tl-m-left{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;}
   .tl-m-name{font-family:'Fraunces',serif;font-weight:500;font-size:1.5rem;letter-spacing:-0.01em;}
   .tl-m-sub{font-family:'JetBrains Mono',monospace;font-size:0.74rem;color:var(--grey);letter-spacing:0.04em;}
+  .tl-m-note{font-size:0.88rem;color:var(--ink-soft);max-width:64ch;margin:2px 0 14px;padding:0 4px;}
   .tl-m-tags{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
   .tl-chip{font-family:'JetBrains Mono',monospace;font-size:0.64rem;font-weight:500;padding:3px 9px;border-radius:20px;display:inline-flex;align-items:center;gap:5px;}
   .tl-chip .dot{width:6px;height:6px;}
