@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f6f1e7">
+<title>Longevity Dashboard — a blank template from Adam Reflects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brass:#8a642c; --brass-deep:#6f4f21; --brass-soft:rgba(138,100,44,.10);
+  --paper:#f6f1e7; --paper-2:#efe8da; --card:#fffdf8;
+  --ink:#1c1a17; --ink-soft:#48423a; --grey:#9a9186;
+  --line:#ddd3c0; --line-soft:#e8e0d0;
+  --green:#4f7a52; --green-bg:rgba(79,122,82,.10);
+  --amber:#c58a2e; --amber-bg:rgba(197,138,46,.12);
+  --red:#a8443a;   --red-bg:rgba(168,68,58,.10);
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono','SFMono-Regular',Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6;
+  -webkit-font-smoothing:antialiased;padding-bottom:40px}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+
+/* ---------- Disclaimer gate ---------- */
+#gate{position:fixed;inset:0;background:var(--paper);z-index:999;overflow-y:auto;padding:32px 18px 60px}
+#gate .inner{max-width:620px;margin:0 auto}
+.gate-eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--brass-deep);margin-bottom:16px}
+#gate h1{font-family:var(--serif);font-weight:500;font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.15;
+  letter-spacing:-.02em;margin-bottom:20px}
+#gate h1 em{font-style:italic;color:var(--brass-deep)}
+.gate-box{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--red);
+  border-radius:0 10px 10px 0;padding:20px 22px;margin-bottom:16px}
+.gate-box h2{font-family:var(--serif);font-weight:500;font-size:1.15rem;margin-bottom:10px}
+.gate-box p{font-size:.94rem;color:var(--ink-soft);margin-bottom:10px}
+.gate-box p:last-child{margin-bottom:0}
+.gate-box strong{color:var(--ink);font-weight:600}
+.gate-note{background:var(--paper-2);border:1px solid var(--line);border-radius:10px;
+  padding:18px 20px;margin-bottom:20px;font-size:.92rem;color:var(--ink-soft)}
+.gate-note h3{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--brass-deep);margin-bottom:10px}
+.gate-note ul{list-style:none}
+.gate-note li{padding:5px 0 5px 18px;position:relative}
+.gate-note li:before{content:"—";position:absolute;left:0;color:var(--brass)}
+.agree{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);
+  border-radius:10px;padding:16px 18px;margin-bottom:18px;cursor:pointer}
+.agree input{width:20px;height:20px;margin-top:2px;accent-color:var(--brass);flex-shrink:0;cursor:pointer}
+.agree span{font-size:.94rem;color:var(--ink)}
+
+/* ---------- Header ---------- */
+header{border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:50}
+.head-inner{max-width:760px;margin:0 auto;padding:18px 18px 0}
+.eyebrow{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--brass-deep)}
+.head-row{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin-top:4px}
+h1.title{font-family:var(--serif);font-weight:500;font-size:1.55rem;letter-spacing:-.015em}
+h1.title em{font-style:italic;color:var(--brass-deep)}
+.head-meta{font-family:var(--mono);font-size:.72rem;color:var(--grey)}
+nav{display:flex;gap:4px;overflow-x:auto;padding:14px 0 0;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{font-family:var(--sans);font-size:.82rem;font-weight:500;color:var(--ink-soft);
+  background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;
+  padding:8px 12px 10px;white-space:nowrap;transition:.15s}
+nav button:hover{color:var(--ink)}
+nav button.on{color:var(--brass-deep);border-bottom-color:var(--brass);font-weight:600}
+
+/* ---------- Layout bits ---------- */
+.tab{display:none;padding-top:26px}
+.tab.on{display:block}
+.lede{color:var(--ink-soft);font-size:.96rem;max-width:60ch;margin-bottom:22px}
+h2.sec{font-family:var(--serif);font-weight:500;font-size:1.3rem;letter-spacing:-.01em;
+  margin:30px 0 6px;padding-top:22px;border-top:1px solid var(--line)}
+h2.sec:first-of-type{border-top:none;padding-top:0;margin-top:0}
+h3.sub{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--brass-deep);margin:22px 0 10px;display:flex;align-items:center;gap:9px}
+h3.sub:before{content:"";width:20px;height:1.5px;background:var(--brass);display:inline-block}
+.note{font-size:.88rem;color:var(--grey);max-width:62ch;margin-bottom:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+
+/* ---------- Forms ---------- */
+label.f{display:block;font-size:.78rem;font-weight:600;color:var(--ink-soft);margin-bottom:5px;
+  letter-spacing:.01em}
+input,select,textarea{font-family:var(--sans);font-size:.95rem;color:var(--ink);background:#fff;
+  border:1px solid var(--line);border-radius:8px;padding:9px 11px;width:100%;outline:none;transition:.15s}
+input:focus,select:focus,textarea:focus{border-color:var(--brass);box-shadow:0 0 0 3px var(--brass-soft)}
+input[type=number]{font-family:var(--mono)}
+textarea{resize:vertical;min-height:70px;line-height:1.55}
+.field{margin-bottom:14px}
+.btn{font-family:var(--sans);font-size:.85rem;font-weight:600;border-radius:8px;padding:10px 18px;
+  cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--ink);transition:.15s}
+.btn:hover{background:var(--paper-2)}
+.btn.pri{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.pri:hover{background:var(--brass-deep);border-color:var(--brass-deep)}
+.btn.sm{font-size:.76rem;padding:6px 12px}
+.btn.danger{color:var(--red);border-color:var(--red)}
+.btn.danger:hover{background:var(--red-bg)}
+.btn-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:6px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+.seg button{font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;padding:7px 13px;border:none;
+  background:transparent;color:var(--ink-soft);cursor:pointer;transition:.15s}
+.seg button.on{background:var(--brass);color:#fff;font-weight:500}
+
+/* ---------- Status pills ---------- */
+.pill{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.66rem;
+  letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:20px;font-weight:500;white-space:nowrap}
+.pill .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.p-green{background:var(--green-bg);color:var(--green)} .p-green .dot{background:var(--green)}
+.p-amber{background:var(--amber-bg);color:var(--amber)} .p-amber .dot{background:var(--amber)}
+.p-red{background:var(--red-bg);color:var(--red)}       .p-red .dot{background:var(--red)}
+.p-none{background:var(--paper-2);color:var(--grey)}    .p-none .dot{background:var(--grey)}
+
+/* ---------- Marker ledger ---------- */
+.ledger{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card);margin-bottom:14px}
+.ledger-head{background:var(--paper-2);padding:11px 16px;display:flex;justify-content:space-between;
+  align-items:center;border-bottom:1px solid var(--line)}
+.ledger-head .name{font-family:var(--serif);font-weight:500;font-size:1.02rem}
+.ledger-head .tally{font-family:var(--mono);font-size:.68rem;color:var(--grey)}
+.mk{border-bottom:1px solid var(--line-soft)}
+.mk:last-child{border-bottom:none}
+.mk-top{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:11px 16px;
+  cursor:pointer;transition:.15s}
+.mk-top:hover{background:var(--paper-2)}
+.mk-name{font-size:.92rem;font-weight:500}
+.mk-range{font-family:var(--mono);font-size:.68rem;color:var(--grey);margin-top:2px}
+.mk-val{font-family:var(--mono);font-size:.92rem;font-weight:500;text-align:right;min-width:70px;align-self:center}
+.mk-val.nil{color:var(--grey);font-weight:400}
+.mk-body{display:none;padding:0 16px 16px;background:var(--paper-2);border-top:1px solid var(--line-soft)}
+.mk.open .mk-body{display:block}
+.mk-body .what{font-size:.89rem;color:var(--ink-soft);line-height:1.65;padding-top:14px}
+.mk-body .talk{font-size:.86rem;color:var(--ink-soft);line-height:1.6;background:var(--card);
+  border-left:3px solid var(--brass);border-radius:0 8px 8px 0;padding:11px 14px;margin-top:11px}
+.mk-body .talk b{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--brass-deep);display:block;margin-bottom:4px;font-weight:500}
+.mk-entry{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:13px}
+.mk-entry label{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--grey);display:block;margin-bottom:4px}
+.mk-entry input{padding:7px 9px;font-size:.86rem}
+
+/* ---------- Log lists ---------- */
+.log{border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.log-item{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;
+  padding:12px 16px;border-bottom:1px solid var(--line-soft)}
+.log-item:last-child{border-bottom:none}
+.log-date{font-family:var(--mono);font-size:.7rem;color:var(--grey);min-width:56px}
+.log-main{font-size:.9rem}
+.log-sub{font-family:var(--mono);font-size:.72rem;color:var(--grey);margin-top:2px}
+.log-act{display:flex;gap:8px;align-items:center}
+.x{background:none;border:none;color:var(--grey);cursor:pointer;font-size:1.1rem;line-height:1;padding:4px 6px;border-radius:5px}
+.x:hover{color:var(--red);background:var(--red-bg)}
+.empty{text-align:center;padding:34px 20px;color:var(--grey);font-size:.9rem}
+.empty strong{display:block;font-family:var(--serif);font-size:1.05rem;color:var(--ink-soft);
+  font-weight:500;margin-bottom:5px}
+
+/* ---------- Stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:14px}
+.stat{background:var(--card);padding:15px 16px}
+.stat-n{font-family:var(--serif);font-weight:500;font-size:1.7rem;line-height:1.1;letter-spacing:-.02em}
+.stat-l{font-family:var(--mono);font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);margin-top:5px}
+.spark{width:100%;height:52px;display:block;margin-top:10px}
+
+/* ---------- Supplements ---------- */
+.supp{display:grid;grid-template-columns:auto 1fr auto;gap:13px;align-items:center;
+  padding:12px 16px;border-bottom:1px solid var(--line-soft)}
+.supp:last-child{border-bottom:none}
+.tick{width:24px;height:24px;border-radius:6px;border:1.5px solid var(--line);background:#fff;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.8rem;
+  color:transparent;transition:.15s;flex-shrink:0}
+.tick.on{background:var(--green);border-color:var(--green);color:#fff}
+
+/* ---------- Footer ---------- */
+.foot{border-top:1px solid var(--line);margin-top:44px;padding:26px 0 10px;font-size:.82rem;color:var(--grey)}
+.foot strong{color:var(--ink-soft)}
+.foot a{color:var(--brass-deep);font-weight:500}
+
+@media(max-width:560px){
+  .grid2,.grid3{grid-template-columns:1fr}
+  .mk-entry{grid-template-columns:1fr 1fr}
+  .mk-top{grid-template-columns:1fr auto;gap:9px}
+  h1.title{font-size:1.3rem}
+}
+@media print{
+  header,nav,#gate,.btn,.btn-row,.x,.tick{display:none!important}
+  body{background:#fff;padding:0}
+  .tab{display:none!important} .tab.print{display:block!important}
+  .card,.ledger,.log{break-inside:avoid}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ══════════ DISCLAIMER GATE ══════════ -->
+<div id="gate">
+  <div class="inner">
+    <div class="gate-eyebrow">Read this first · you cannot skip it</div>
+    <h1>This is a <em>notebook</em>, not a doctor.</h1>
+
+    <div class="gate-box">
+      <h2>What this is not</h2>
+      <p><strong>This is not medical advice.</strong> Nothing here diagnoses, treats, or rules
+      out any condition. It cannot see you, examine you, or know your history.</p>
+      <p><strong>This is not advice from Adam either.</strong> Adam is a jeweller in Cork, not a
+      doctor, nurse, dietitian or scientist. He built a version of this for himself, then made a
+      blank copy to share. He is not advising you to do anything at all.</p>
+      <p><strong>You use this entirely at your own risk.</strong> Adam and Adam Reflects accept no
+      responsibility whatsoever for any decision, action, delay, harm, loss or cost arising from
+      your use of this file. If you are not willing to carry that risk yourself, close this page now.</p>
+      <p><strong>Never delay medical care because of something you read here.</strong> If you feel
+      unwell, or a result worries you, contact your doctor. If it is an emergency, ring your local
+      emergency number.</p>
+    </div>
+
+    <div class="gate-note">
+      <h3>What it actually does</h3>
+      <ul>
+        <li>Holds numbers you type in, so they sit in one place instead of a drawer</li>
+        <li>Shows a general reference range beside each one, and whether yours falls inside it</li>
+        <li>Explains in plain English what each marker is measuring</li>
+        <li>Keeps a log of your training, supplements and body measurements over time</li>
+        <li>Prints a one-page summary you can bring to an appointment</li>
+      </ul>
+      <h3 style="margin-top:16px">About the ranges</h3>
+      <ul>
+        <li>Reference ranges differ by laboratory, by country, by age and by sex</li>
+        <li>The ones built in here are general adult ranges and may not match your lab's</li>
+        <li>Every range is editable — type your own lab's numbers in and it uses those instead</li>
+        <li>"Inside the range" is not the same as "healthy", and outside it is not the same as "ill"</li>
+      </ul>
+      <h3 style="margin-top:16px">Where your data lives</h3>
+      <ul>
+        <li>Everything stays in this browser on this device. Nothing is uploaded anywhere</li>
+        <li>There is no account, no server, no analytics, and nobody else can see it</li>
+        <li>Clearing your browser data will erase it — export a backup from the Data tab</li>
+      </ul>
+    </div>
+
+    <label class="agree">
+      <input type="checkbox" id="agreeBox">
+      <span>I have read the above. I understand this is not medical advice and not advice from
+      Adam, that I am using it at my own risk, and that I will speak to a qualified professional
+      about my health.</span>
+    </label>
+
+    <button class="btn pri" id="gateBtn" disabled style="opacity:.45;cursor:not-allowed">
+      Open the dashboard
+    </button>
+  </div>
+</div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header>
+  <div class="head-inner">
+    <div class="eyebrow">A blank template from adamreflects.ie</div>
+    <div class="head-row">
+      <h1 class="title">Longevity <em>Dashboard</em></h1>
+      <div class="head-meta" id="headMeta">Not set up yet</div>
+    </div>
+    <nav id="nav">
+      <button data-t="you" class="on">You</button>
+      <button data-t="bloods">Bloods</button>
+      <button data-t="training">Training</button>
+      <button data-t="supps">Supplements</button>
+      <button data-t="body">Measurements</button>
+      <button data-t="appt">Appointment</button>
+      <button data-t="data">Data</button>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ══════════ YOU ══════════ -->
+<section class="tab on" id="t-you">
+  <p class="lede">Your details shape which reference ranges are shown — several markers have
+  different ranges for men and women. Nothing here leaves your device.</p>
+
+  <div class="card">
+    <div class="grid2">
+      <div class="field">
+        <label class="f" for="pName">Name (optional)</label>
+        <input id="pName" placeholder="Leave blank if you'd rather not">
+      </div>
+      <div class="field">
+        <label class="f" for="pDob">Age</label>
+        <input id="pDob" type="number" min="16" max="110" placeholder="e.g. 45">
+      </div>
+    </div>
+    <div class="field">
+      <label class="f">Sex recorded at birth</label>
+      <div class="seg" id="segSex">
+        <button data-v="m">Male</button><button data-v="f">Female</button>
+      </div>
+      <p class="note" style="margin:8px 0 0">Used only to pick the right reference ranges for
+      markers like haemoglobin, ferritin and creatinine.</p>
+    </div>
+    <div class="grid2">
+      <div class="field">
+        <label class="f" for="pHeight">Height</label>
+        <input id="pHeight" type="number" step="0.1" placeholder="cm">
+      </div>
+      <div class="field">
+        <label class="f" for="pWeight">Weight today</label>
+        <input id="pWeight" type="number" step="0.1" placeholder="kg">
+      </div>
+    </div>
+    <div class="field">
+      <label class="f">Units</label>
+      <div class="grid2">
+        <div>
+          <p class="note" style="margin:0 0 6px">Body</p>
+          <div class="seg" id="segBody">
+            <button data-v="metric">cm / kg</button><button data-v="imperial">in / lb</button>
+          </div>
+        </div>
+        <div>
+          <p class="note" style="margin:0 0 6px">Blood results</p>
+          <div class="seg" id="segBlood">
+            <button data-v="si">mmol/L</button><button data-v="us">mg/dL</button>
+          </div>
+        </div>
+      </div>
+      <p class="note" style="margin:10px 0 0">Ireland, the UK and most of Europe report cholesterol
+      and glucose in mmol/L. The US uses mg/dL. Pick whichever matches the report in your hand —
+      entering the wrong one will make everything look badly out of range.</p>
+    </div>
+    <div class="btn-row">
+      <button class="btn pri" id="saveProfile">Save details</button>
+      <span id="profileSaved" style="font-size:.82rem;color:var(--green);align-self:center;display:none">Saved</span>
+    </div>
+  </div>
+
+  <h3 class="sub">Where you stand today</h3>
+  <div class="stats" id="youStats"></div>
+  <p class="note">BMI is a crude measure. It takes no account of muscle, frame or body composition,
+  and a very muscular person can read as "overweight" while being nothing of the sort. It is here
+  because it is one input among many, not a verdict.</p>
+</section>
+
+<!-- ══════════ BLOODS ══════════ -->
+<section class="tab" id="t-bloods">
+  <p class="lede">Type in the numbers from your own blood report. Tap any marker to read what it
+  measures, and to correct the reference range to the one printed on your report.</p>
+
+  <div class="card" style="border-left:3px solid var(--amber);border-radius:0 10px 10px 0">
+    <p style="font-size:.9rem;color:var(--ink-soft)">
+      <strong>The ranges below are general adult ranges, not yours.</strong> Laboratories set their
+      own. If the range printed on your report differs, edit it here — the flag beside each marker
+      will then reflect your lab, not this file's guess. A flag is a prompt to ask a question,
+      never an answer.
+    </p>
+  </div>
+
+  <div class="btn-row" style="margin:18px 0 4px">
+    <div class="field" style="flex:1;min-width:180px;margin:0">
+      <label class="f" for="bloodDate">Date of this blood test</label>
+      <input id="bloodDate" type="date">
+    </div>
+  </div>
+
+  <div id="markerList"></div>
+</section>
+
+<!-- ══════════ TRAINING ══════════ -->
+<section class="tab" id="t-training">
+  <p class="lede">A record of what you actually did, not what you meant to do. Distance and time
+  give you a pace; over weeks, the pattern is the point.</p>
+
+  <div class="card">
+    <h3 class="sub" style="margin-top:0">Log a session</h3>
+    <div class="grid2">
+      <div class="field">
+        <label class="f" for="exDate">Date</label>
+        <input id="exDate" type="date">
+      </div>
+      <div class="field">
+        <label class="f" for="exType">Activity</label>
+        <select id="exType">
+          <option>Walk</option><option>Brisk walk</option><option>Hike</option>
+          <option>Jog</option><option>Run</option><option>Cycle</option>
+          <option>Swim</option><option>Row</option><option>Gym / weights</option>
+          <option>Class</option><option>Sport</option><option>Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid3">
+      <div class="field">
+        <label class="f" for="exDist">Distance <span id="distUnit" style="color:var(--grey)">(km)</span></label>
+        <input id="exDist" type="number" step="0.01" min="0" placeholder="Leave blank for gym">
+      </div>
+      <div class="field">
+        <label class="f" for="exMin">Minutes</label>
+        <input id="exMin" type="number" min="0" placeholder="e.g. 42">
+      </div>
+      <div class="field">
+        <label class="f" for="exEffort">Effort</label>
+        <select id="exEffort">
+          <option>Easy</option><option>Steady</option><option>Hard</option><option>All out</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label class="f" for="exNote">Note (optional)</label>
+      <input id="exNote" placeholder="How it felt, route, weights lifted…">
+    </div>
+    <div class="btn-row">
+      <button class="btn pri" id="addEx">Add session</button>
+    </div>
+  </div>
+
+  <h3 class="sub">Last 7 days</h3>
+  <div class="stats" id="exStats7"></div>
+  <h3 class="sub">Last 28 days</h3>
+  <div class="stats" id="exStats28"></div>
+
+  <h3 class="sub">History</h3>
+  <div class="log" id="exLog"></div>
+</section>
+
+<!-- ══════════ SUPPLEMENTS ══════════ -->
+<section class="tab" id="t-supps">
+  <p class="lede">Add whatever you actually take, then tick them off each day. The only number
+  that matters here is how often you remember.</p>
+
+  <div class="card">
+    <h3 class="sub" style="margin-top:0">Add a supplement</h3>
+    <div class="grid3">
+      <div class="field">
+        <label class="f" for="spName">Name</label>
+        <input id="spName" placeholder="e.g. Vitamin D3">
+      </div>
+      <div class="field">
+        <label class="f" for="spDose">Dose</label>
+        <input id="spDose" placeholder="e.g. 1000 IU">
+      </div>
+      <div class="field">
+        <label class="f" for="spTime">When</label>
+        <input id="spTime" placeholder="e.g. with breakfast">
+      </div>
+    </div>
+    <div class="btn-row"><button class="btn pri" id="addSupp">Add</button></div>
+    <p class="note" style="margin-top:12px">This file suggests nothing and recommends nothing. It
+    lists only what you type in. Supplements interact with medicines and with each other — that is
+    a conversation for your doctor or pharmacist, not a web page.</p>
+  </div>
+
+  <h3 class="sub">Today · <span id="suppDate" style="font-family:var(--mono);color:var(--grey)"></span></h3>
+  <div class="log" id="suppList"></div>
+  <div class="stats" id="suppStats" style="margin-top:14px"></div>
+</section>
+
+<!-- ══════════ MEASUREMENTS ══════════ -->
+<section class="tab" id="t-body">
+  <p class="lede">Weight, waist, resting pulse and blood pressure, whenever you take them. One
+  reading tells you very little; a line of them tells you something.</p>
+
+  <div class="card">
+    <h3 class="sub" style="margin-top:0">Add a reading</h3>
+    <div class="grid2">
+      <div class="field">
+        <label class="f" for="bDate">Date</label>
+        <input id="bDate" type="date">
+      </div>
+      <div class="field">
+        <label class="f" for="bWeight">Weight <span id="wUnit" style="color:var(--grey)">(kg)</span></label>
+        <input id="bWeight" type="number" step="0.1" placeholder="Optional">
+      </div>
+    </div>
+    <div class="grid3">
+      <div class="field">
+        <label class="f" for="bWaist">Waist <span id="waistUnit" style="color:var(--grey)">(cm)</span></label>
+        <input id="bWaist" type="number" step="0.1" placeholder="Optional">
+      </div>
+      <div class="field">
+        <label class="f" for="bRhr">Resting pulse</label>
+        <input id="bRhr" type="number" placeholder="bpm">
+      </div>
+      <div class="field">
+        <label class="f" for="bBp">Blood pressure</label>
+        <input id="bBp" placeholder="e.g. 120/78">
+      </div>
+    </div>
+    <div class="btn-row"><button class="btn pri" id="addBody">Add reading</button></div>
+  </div>
+
+  <h3 class="sub">Weight over time</h3>
+  <div class="card" id="weightCard"></div>
+
+  <h3 class="sub">History</h3>
+  <div class="log" id="bodyLog"></div>
+</section>
+
+<!-- ══════════ APPOINTMENT ══════════ -->
+<section class="tab" id="t-appt">
+  <p class="lede">A page to print or hand across. It pulls together anything currently sitting
+  outside its reference range, plus whatever questions you've written down.</p>
+
+  <div class="card">
+    <h3 class="sub" style="margin-top:0">Questions I want to ask</h3>
+    <div class="field">
+      <input id="qNew" placeholder="e.g. Should this result be repeated?">
+    </div>
+    <div class="btn-row"><button class="btn pri" id="addQ">Add question</button></div>
+  </div>
+  <div class="log" id="qList" style="margin-bottom:20px"></div>
+
+  <div class="btn-row" style="margin-bottom:18px">
+    <button class="btn pri" id="printBtn">Print this summary</button>
+  </div>
+
+  <div id="apptSummary"></div>
+</section>
+
+<!-- ══════════ DATA ══════════ -->
+<section class="tab" id="t-data">
+  <p class="lede">Everything you type sits in this browser's local storage on this device only.
+  No account, no server, no upload, no analytics. That also means nobody can recover it for you.</p>
+
+  <div class="card">
+    <h3 class="sub" style="margin-top:0">Back it up</h3>
+    <p class="note">Saves a single file containing everything. Keep it somewhere safe — it holds
+    your health information in plain text.</p>
+    <div class="btn-row"><button class="btn pri" id="exportBtn">Download a backup</button></div>
+  </div>
+
+  <div class="card">
+    <h3 class="sub" style="margin-top:0">Restore from a backup</h3>
+    <p class="note">Replaces everything currently in this browser with the contents of the file.</p>
+    <div class="btn-row">
+      <input type="file" id="importFile" accept=".json" style="max-width:280px">
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="sub" style="margin-top:0">Erase everything</h3>
+    <p class="note">Wipes every entry from this browser permanently. There is no undo and no copy
+    held anywhere else.</p>
+    <div class="btn-row"><button class="btn danger" id="wipeBtn">Erase all my data</button></div>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--red);border-radius:0 10px 10px 0">
+    <h3 class="sub" style="margin-top:0">The disclaimer, again</h3>
+    <p style="font-size:.9rem;color:var(--ink-soft)">Not medical advice. Not advice from Adam.
+    Used entirely at your own risk. Adam and Adam Reflects accept no responsibility for any
+    decision, action, delay, harm, loss or cost arising from your use of this file. Reference
+    ranges are general and may not match your laboratory's. Speak to a qualified professional
+    about your health, and never delay care because of anything shown here.</p>
+    <div class="btn-row"><button class="btn sm" id="showGate">Read the full notice again</button></div>
+  </div>
+</section>
+
+<div class="foot">
+  <p><strong>Longevity Dashboard</strong> — a blank template from
+  <a href="https://adamreflects.ie">adamreflects.ie</a>. Free to use, change and pass on.</p>
+  <p style="margin-top:6px">Not medical advice · not advice from Adam · used at your own risk ·
+  your data never leaves this device.</p>
+</div>
+
+</div>
+<script>
+/* ══════════════════════════════════════════════════════════════
+   Longevity Dashboard — a blank template from adamreflects.ie
+   Everything runs in the browser. Nothing is sent anywhere.
+   Not medical advice. Not advice from Adam. Used at your own risk.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ---------- storage ---------- */
+const DB = {
+  get(k, d) { try { const v = localStorage.getItem('lgv_' + k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem('lgv_' + k, JSON.stringify(v)); } catch {} },
+  del(k)    { try { localStorage.removeItem('lgv_' + k); } catch {} }
+};
+
+let profile   = DB.get('profile', { name:'', age:'', sex:'m', height:'', weight:'', ub:'metric', ubl:'si' });
+let markers   = DB.get('markers', {});
+let ranges    = DB.get('ranges', {});
+let bloodDate = DB.get('bloodDate', '');
+let exercise  = DB.get('exercise', []);
+let supps     = DB.get('supps', []);
+let suppLog   = DB.get('suppLog', {});
+let bodyLog   = DB.get('bodyLog', []);
+let questions = DB.get('questions', []);
+
+const today = () => new Date().toISOString().slice(0, 10);
+const uid   = () => Math.random().toString(36).slice(2, 9);
+const esc   = s => String(s == null ? '' : s).replace(/[&<>"']/g, c =>
+  ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+
+/* ══════════ MARKER REFERENCE DATA ══════════
+   Ranges are GENERAL ADULT ranges and vary between laboratories.
+   Stored internally in the SI unit; converted for display only.
+   f = multiply SI value by this to get the US/conventional unit.        */
+
+const MARKERS = [
+  /* ---- Lipids ---- */
+  { k:'tc', c:'Lipids', n:'Total cholesterol', u:'mmol/L', uUS:'mg/dL', f:38.67, hi:5.0,
+    what:'The total of all cholesterol carried in your blood. On its own it is a blunt number, because it lumps together particles that behave very differently.',
+    talk:'Usually read alongside HDL, LDL and triglycerides rather than by itself.' },
+  { k:'hdl', c:'Lipids', n:'HDL cholesterol', u:'mmol/L', uUS:'mg/dL', f:38.67, loM:1.0, loF:1.2,
+    what:'Often called the "good" one. These particles carry cholesterol back to the liver. Here, higher is generally regarded as better, which is why only a lower limit is set.',
+    talk:'A low reading is usually discussed together with triglycerides, activity levels and weight.' },
+  { k:'ldl', c:'Lipids', n:'LDL cholesterol', u:'mmol/L', uUS:'mg/dL', f:38.67, hi:3.0,
+    what:'The particles most associated with fatty build-up in artery walls. On many reports LDL is calculated rather than measured directly.',
+    talk:'Calculated LDL becomes less reliable when triglycerides are high. Worth asking whether yours was measured or estimated, and what target suits your own risk.' },
+  { k:'trig', c:'Lipids', n:'Triglycerides', u:'mmol/L', uUS:'mg/dL', f:88.57, hi:1.7,
+    what:'Fat circulating in the blood. Strongly affected by what and when you last ate, so most labs ask you to fast beforehand.',
+    talk:'If you did not fast, the number may not mean much. Worth confirming whether the sample was a fasting one.' },
+  { k:'nonhdl', c:'Lipids', n:'Non-HDL cholesterol', u:'mmol/L', uUS:'mg/dL', f:38.67, hi:4.0,
+    what:'Total cholesterol minus HDL — a single figure covering every particle thought to contribute to arterial build-up.',
+    talk:'Some clinicians prefer this to LDL because it does not rely on a calculation.' },
+  { k:'apob', c:'Lipids', n:'ApoB', u:'g/L', uUS:'mg/dL', f:100, hi:1.0,
+    what:'Counts the actual number of cholesterol-carrying particles rather than the cholesterol inside them. Not on every standard panel.',
+    talk:'If it was not measured, it is a reasonable one to ask about, particularly where cholesterol results are hard to interpret.' },
+
+  /* ---- Blood sugar ---- */
+  { k:'hba1c', c:'Blood sugar', n:'HbA1c', u:'mmol/mol', uUS:'%', hba1c:true, lo:20, hi:42,
+    what:'An average of your blood sugar over roughly the previous three months, so a single bad week barely shows.',
+    talk:'Interpretation changes with anaemia, pregnancy and some blood conditions. Mention anything relevant.' },
+  { k:'gluc', c:'Blood sugar', n:'Fasting glucose', u:'mmol/L', uUS:'mg/dL', f:18.016, lo:3.9, hi:5.5,
+    what:'Blood sugar after not eating overnight. Only meaningful if you genuinely fasted beforehand.',
+    talk:'Confirm how long you had fasted — a coffee with milk is enough to shift it.' },
+  { k:'insulin', c:'Blood sugar', n:'Fasting insulin', u:'mIU/L', hi:10,
+    what:'How much insulin your body is producing at rest. Rarely included as standard.',
+    talk:'Sometimes requested alongside fasting glucose. Whether it is useful for you is a question for your doctor.' },
+
+  /* ---- Inflammation ---- */
+  { k:'crp', c:'Inflammation', n:'hs-CRP', u:'mg/L', hi:3.0,
+    what:'A general marker of inflammation. It rises with any infection, injury or recent illness, so timing matters enormously.',
+    talk:'A raised result days after a cold or a heavy training week may mean nothing. Ask whether repeating it later would be sensible.' },
+  { k:'urate', c:'Inflammation', n:'Uric acid', u:'µmol/L', loM:200, hiM:430, loF:140, hiF:360,
+    what:'A waste product from breaking down purines. High levels are associated with gout.',
+    talk:'Worth mentioning any joint pain or swelling alongside this one.' },
+
+  /* ---- Vitamins & minerals ---- */
+  { k:'vitd', c:'Vitamins & minerals', n:'Vitamin D', u:'nmol/L', uUS:'ng/mL', f:0.4006, lo:50, hi:125,
+    what:'Mostly made in the skin from sunlight, which is why levels commonly fall over winter at northern latitudes.',
+    talk:'Both low and very high readings are worth raising. Do not start high-dose supplements on the strength of a number alone.' },
+  { k:'b12', c:'Vitamins & minerals', n:'Vitamin B12', u:'ng/L', lo:200, hi:900,
+    what:'Needed for nerves and for making red blood cells. Dietary sources are almost entirely animal-based.',
+    talk:'Relevant if you eat little or no meat, or take certain long-term medicines.' },
+  { k:'folate', c:'Vitamins & minerals', n:'Folate', u:'µg/L', lo:3.0, hi:20,
+    what:'A B vitamin found in leafy greens, beans and fortified foods. Works closely with B12.',
+    talk:'Usually interpreted together with B12 rather than alone.' },
+  { k:'ferritin', c:'Vitamins & minerals', n:'Ferritin', u:'µg/L', loM:30, hiM:400, loF:15, hiF:200,
+    what:'A measure of stored iron. It also rises with inflammation, so a normal-looking figure can hide low iron.',
+    talk:'If you feel tired or run down, ask whether this should be read alongside CRP and a full blood count.' },
+  { k:'mag', c:'Vitamins & minerals', n:'Magnesium', u:'mmol/L', uUS:'mg/dL', f:2.43, lo:0.70, hi:1.00,
+    what:'Most magnesium sits inside cells and bone, so a blood level is a rough guide at best.',
+    talk:'Rarely acted on in isolation.' },
+
+  /* ---- Thyroid & hormones ---- */
+  { k:'tsh', c:'Thyroid & hormones', n:'TSH', u:'mIU/L', lo:0.4, hi:4.0,
+    what:'The signal your brain sends to the thyroid. Counter-intuitively, a high TSH usually points to an underactive thyroid.',
+    talk:'Almost always read together with thyroid hormone levels rather than by itself.' },
+  { k:'ft4', c:'Thyroid & hormones', n:'Free T4', u:'pmol/L', lo:12, hi:22,
+    what:'The main hormone the thyroid releases, in its unbound and usable form.',
+    talk:'Interpreted alongside TSH.' },
+  { k:'testo', c:'Thyroid & hormones', n:'Testosterone (total)', u:'nmol/L', uUS:'ng/dL', f:28.84,
+    loM:8.0, hiM:29.0, loF:0.5, hiF:2.4,
+    what:'Levels swing considerably through the day and are normally highest in the morning.',
+    talk:'The time your sample was taken matters. A single reading is rarely enough on its own.' },
+
+  /* ---- Full blood count ---- */
+  { k:'hb', c:'Full blood count', n:'Haemoglobin', u:'g/dL', loM:13.0, hiM:17.0, loF:12.0, hiF:15.0,
+    what:'The protein in red blood cells that carries oxygen. A low result is what most people mean by anaemia.',
+    talk:'Low readings are usually investigated rather than simply supplemented.' },
+  { k:'wcc', c:'Full blood count', n:'White cell count', u:'×10⁹/L', lo:4.0, hi:11.0,
+    what:'Your immune cells. Rises during infection and falls for a range of reasons.',
+    talk:'A single out-of-range result often just reflects being unwell that week.' },
+  { k:'plt', c:'Full blood count', n:'Platelets', u:'×10⁹/L', lo:150, hi:400,
+    what:'The cells that let blood clot.',
+    talk:'Mention any unusual bruising or bleeding.' },
+  { k:'lymph', c:'Full blood count', n:'Lymphocytes', u:'×10⁹/L', lo:1.0, hi:3.0,
+    what:'A subset of white cells central to fighting viruses.',
+    talk:'Read as part of the full blood count, not alone.' },
+
+  /* ---- Liver ---- */
+  { k:'alt', c:'Liver', n:'ALT', u:'U/L', loM:10, hiM:50, loF:10, hiF:35,
+    what:'A liver enzyme. Raised levels suggest the liver is irritated, from any of a long list of causes.',
+    talk:'Alcohol, some medicines, viral illness and even a very hard gym session can nudge it. Give a full picture.' },
+  { k:'ast', c:'Liver', n:'AST', u:'U/L', lo:10, hi:40,
+    what:'Another enzyme found in the liver but also in muscle, so heavy exercise can raise it.',
+    talk:'Worth mentioning if you trained hard shortly before the test.' },
+  { k:'alp', c:'Liver', n:'ALP', u:'U/L', lo:30, hi:130,
+    what:'An enzyme from the liver, bile ducts and bone. Naturally higher in growing teenagers.',
+    talk:'Usually read with the other liver results.' },
+  { k:'ggt', c:'Liver', n:'GGT', u:'U/L', loM:10, hiM:71, loF:6, hiF:42,
+    what:'Sensitive to alcohol and to several common medicines.',
+    talk:'An honest account of alcohol intake makes this far easier to interpret.' },
+  { k:'alb', c:'Liver', n:'Albumin', u:'g/L', lo:35, hi:50,
+    what:'The main protein in blood. A general marker of nutrition and liver function.',
+    talk:'Rarely meaningful in isolation.' },
+  { k:'bili', c:'Liver', n:'Bilirubin', u:'µmol/L', uUS:'mg/dL', f:0.0585, lo:3, hi:21,
+    what:'A pigment from recycled red blood cells. A mildly high reading is common and often harmless.',
+    talk:'Mention any yellowing of the eyes or skin.' },
+
+  /* ---- Kidneys ---- */
+  { k:'creat', c:'Kidneys', n:'Creatinine', u:'µmol/L', uUS:'mg/dL', f:0.0113,
+    loM:60, hiM:110, loF:45, hiF:90,
+    what:'A waste product from muscle, cleared by the kidneys. More muscle means a naturally higher reading.',
+    talk:'Very muscular people and those taking creatine can read high without a kidney problem.' },
+  { k:'egfr', c:'Kidneys', n:'eGFR', u:'mL/min/1.73m²', lo:90,
+    what:'An estimate of how well the kidneys filter. It is a calculation, not a measurement, and it drifts down with age.',
+    talk:'A slightly reduced figure in later life is common. Ask what is expected for your age.' },
+  { k:'urea', c:'Kidneys', n:'Urea', u:'mmol/L', lo:2.5, hi:7.8,
+    what:'Another waste product cleared by the kidneys. Sensitive to how much you have had to drink.',
+    talk:'Dehydration on the day can lift it.' },
+  { k:'na', c:'Kidneys', n:'Sodium', u:'mmol/L', lo:135, hi:145,
+    what:'A salt balance measure, tightly controlled by the body.',
+    talk:'Affected by fluid intake and by several common medicines.' },
+  { k:'k', c:'Kidneys', n:'Potassium', u:'mmol/L', lo:3.5, hi:5.1,
+    what:'Important for heart rhythm and muscle function.',
+    talk:'A falsely high result can occur if the sample was difficult to take. Repeat testing is common.' }
+];
+
+/* ---------- unit helpers ---------- */
+const isUS = () => profile.ubl === 'us';
+const isImp = () => profile.ub === 'imperial';
+
+function toDisplay(m, si) {
+  if (si === '' || si == null || isNaN(si)) return null;
+  if (!isUS()) return si;
+  if (m.hba1c) return (si * 0.09148) + 2.152;
+  if (m.f) return si * m.f;
+  return si;
+}
+function toSI(m, disp) {
+  if (disp === '' || disp == null || isNaN(disp)) return null;
+  if (!isUS()) return disp;
+  if (m.hba1c) return (disp - 2.152) / 0.09148;
+  if (m.f) return disp / m.f;
+  return disp;
+}
+function unitOf(m) { return (isUS() && (m.uUS || m.hba1c)) ? (m.uUS || '%') : m.u; }
+/* Scale decimals to the size of the number, then strip trailing zeros.
+   3.59 stays 3.59, 5.00 shows as 5, 146 stays 146. */
+function fmt(v) {
+  if (v == null || v === '' || isNaN(v)) return '';
+  const a = Math.abs(v);
+  const d = a < 1 ? 3 : a < 10 ? 2 : a < 100 ? 1 : 0;
+  return String(Number(Number(v).toFixed(d)));
+}
+/* Full precision for editable inputs — display rounding must never become
+   the stored value when a field is re-edited. */
+function exact(v) {
+  if (v == null || v === '' || isNaN(v)) return '';
+  const a = Math.abs(v);
+  return String(Number(Number(v).toFixed(a < 10 ? 4 : a < 1000 ? 2 : 0)));
+}
+
+/* default range for this profile, in SI */
+function defRange(m) {
+  const male = profile.sex !== 'f';
+  return {
+    lo: male ? (m.loM ?? m.lo ?? null) : (m.loF ?? m.lo ?? null),
+    hi: male ? (m.hiM ?? m.hi ?? null) : (m.hiF ?? m.hi ?? null)
+  };
+}
+/* active range = user override if present, else default. Stored in SI. */
+function activeRange(m) {
+  const d = defRange(m), o = ranges[m.k] || {};
+  return { lo: o.lo != null ? o.lo : d.lo, hi: o.hi != null ? o.hi : d.hi, custom: o.lo != null || o.hi != null };
+}
+function rangeLabel(m) {
+  const r = activeRange(m);
+  const lo = r.lo != null ? fmt(toDisplay(m, r.lo)) : null;
+  const hi = r.hi != null ? fmt(toDisplay(m, r.hi)) : null;
+  let txt = lo != null && hi != null ? `${lo}–${hi}` : lo != null ? `above ${lo}` : hi != null ? `below ${hi}` : '—';
+  return `${txt} ${unitOf(m)}${r.custom ? ' · your lab' : ''}`;
+}
+
+/* status: none | green | amber | red */
+function statusOf(m) {
+  const v = markers[m.k];
+  if (v == null || v === '') return 'none';
+  const r = activeRange(m);
+  let over = 0, bound = 0;
+  if (r.lo != null && v < r.lo) { over = r.lo - v; bound = Math.abs(r.lo); }
+  else if (r.hi != null && v > r.hi) { over = v - r.hi; bound = Math.abs(r.hi); }
+  else return 'green';
+  return bound > 0 && over <= bound * 0.10 ? 'amber' : 'red';
+}
+const STATUS_TXT = { green:'In range', amber:'Just outside', red:'Outside range', none:'Not entered' };
+
+/* ══════════ TABS ══════════ */
+document.getElementById('nav').addEventListener('click', e => {
+  const b = e.target.closest('button[data-t]'); if (!b) return;
+  document.querySelectorAll('#nav button').forEach(x => x.classList.toggle('on', x === b));
+  document.querySelectorAll('.tab').forEach(s => s.classList.toggle('on', s.id === 't-' + b.dataset.t));
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  if (b.dataset.t === 'appt') renderAppt();
+});
+
+/* ══════════ GATE ══════════ */
+const gate = document.getElementById('gate');
+const gateBtn = document.getElementById('gateBtn');
+const agreeBox = document.getElementById('agreeBox');
+if (DB.get('agreed', false)) gate.style.display = 'none';
+agreeBox.addEventListener('change', () => {
+  gateBtn.disabled = !agreeBox.checked;
+  gateBtn.style.opacity = agreeBox.checked ? '1' : '.45';
+  gateBtn.style.cursor = agreeBox.checked ? 'pointer' : 'not-allowed';
+});
+gateBtn.addEventListener('click', () => {
+  if (!agreeBox.checked) return;
+  DB.set('agreed', true); gate.style.display = 'none';
+});
+document.getElementById('showGate').addEventListener('click', () => {
+  agreeBox.checked = true; gateBtn.disabled = false; gateBtn.style.opacity = '1';
+  gateBtn.style.cursor = 'pointer'; gate.style.display = 'block'; window.scrollTo(0, 0);
+});
+
+/* ══════════ PROFILE ══════════ */
+function seg(id, val, onPick) {
+  const el = document.getElementById(id);
+  el.querySelectorAll('button').forEach(b => {
+    b.classList.toggle('on', b.dataset.v === val);
+    b.onclick = () => {
+      el.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+      onPick(b.dataset.v);
+    };
+  });
+}
+function paintProfile() {
+  document.getElementById('pName').value   = profile.name || '';
+  document.getElementById('pDob').value    = profile.age || '';
+  document.getElementById('pHeight').value = profile.height || '';
+  document.getElementById('pWeight').value = profile.weight || '';
+  document.getElementById('pHeight').placeholder = isImp() ? 'inches' : 'cm';
+  document.getElementById('pWeight').placeholder = isImp() ? 'lb' : 'kg';
+  seg('segSex',   profile.sex, v => { profile.sex = v; });
+  seg('segBody',  profile.ub,  v => { profile.ub = v; paintProfile(); });
+  seg('segBlood', profile.ubl, v => { profile.ubl = v; renderMarkers(); });
+  document.getElementById('distUnit').textContent  = isImp() ? '(miles)' : '(km)';
+  document.getElementById('wUnit').textContent     = isImp() ? '(lb)' : '(kg)';
+  document.getElementById('waistUnit').textContent = isImp() ? '(in)' : '(cm)';
+  const bits = [];
+  if (profile.name) bits.push(profile.name);
+  if (profile.age)  bits.push(profile.age);
+  document.getElementById('headMeta').textContent = bits.length ? bits.join(' · ') : 'Not set up yet';
+}
+document.getElementById('saveProfile').addEventListener('click', () => {
+  profile.name   = document.getElementById('pName').value.trim();
+  profile.age    = document.getElementById('pDob').value;
+  profile.height = document.getElementById('pHeight').value;
+  profile.weight = document.getElementById('pWeight').value;
+  DB.set('profile', profile);
+  const s = document.getElementById('profileSaved');
+  s.style.display = 'inline'; setTimeout(() => s.style.display = 'none', 1800);
+  paintProfile(); renderYou(); renderMarkers();
+});
+
+function renderYou() {
+  let h = parseFloat(profile.height), w = parseFloat(profile.weight);
+  if (isImp()) { if (h) h = h * 2.54; if (w) w = w * 0.4536; }
+  const cells = [];
+  if (h && w) {
+    const bmi = w / Math.pow(h / 100, 2);
+    cells.push(`<div class="stat"><div class="stat-n">${bmi.toFixed(1)}</div><div class="stat-l">BMI</div></div>`);
+  }
+  cells.push(`<div class="stat"><div class="stat-n">${Object.values(markers).filter(v => v != null && v !== '').length}</div><div class="stat-l">Markers entered</div></div>`);
+  const wk = exercise.filter(e => daysAgo(e.date) < 7);
+  cells.push(`<div class="stat"><div class="stat-n">${wk.length}</div><div class="stat-l">Sessions · 7 days</div></div>`);
+  cells.push(`<div class="stat"><div class="stat-n">${bodyLog.length}</div><div class="stat-l">Measurements</div></div>`);
+  document.getElementById('youStats').innerHTML = cells.join('');
+}
+const daysAgo = d => Math.floor((new Date(today()) - new Date(d)) / 86400000);
+
+/* ══════════ MARKERS ══════════ */
+const bd = document.getElementById('bloodDate');
+bd.value = bloodDate || '';
+bd.addEventListener('change', () => { bloodDate = bd.value; DB.set('bloodDate', bloodDate); });
+
+function renderMarkers() {
+  const cats = [...new Set(MARKERS.map(m => m.c))];
+  document.getElementById('markerList').innerHTML = cats.map(c => {
+    const list = MARKERS.filter(m => m.c === c);
+    const done = list.filter(m => statusOf(m) !== 'none').length;
+    const flagged = list.filter(m => ['amber','red'].includes(statusOf(m))).length;
+    return `<div class="ledger">
+      <div class="ledger-head">
+        <span class="name">${c}</span>
+        <span class="tally">${done}/${list.length} entered${flagged ? ' · ' + flagged + ' flagged' : ''}</span>
+      </div>
+      ${list.map(m => markerRow(m)).join('')}
+    </div>`;
+  }).join('');
+
+  document.querySelectorAll('.mk-top').forEach(t => t.onclick = e => {
+    if (e.target.closest('input')) return;
+    t.parentElement.classList.toggle('open');
+  });
+  document.querySelectorAll('[data-mkval]').forEach(i => i.onchange = () => {
+    const m = MARKERS.find(x => x.k === i.dataset.mkval);
+    const raw = i.value === '' ? null : parseFloat(i.value);
+    markers[m.k] = raw == null ? null : toSI(m, raw);
+    DB.set('markers', markers); renderMarkers(); renderYou();
+  });
+  document.querySelectorAll('[data-mklo],[data-mkhi]').forEach(i => i.onchange = () => {
+    const key = i.dataset.mklo || i.dataset.mkhi;
+    const m = MARKERS.find(x => x.k === key);
+    const which = i.dataset.mklo ? 'lo' : 'hi';
+    ranges[m.k] = ranges[m.k] || {};
+    ranges[m.k][which] = i.value === '' ? null : toSI(m, parseFloat(i.value));
+    if (ranges[m.k].lo == null && ranges[m.k].hi == null) delete ranges[m.k];
+    DB.set('ranges', ranges); renderMarkers();
+  });
+}
+
+function markerRow(m) {
+  const st = statusOf(m);
+  const v = markers[m.k];
+  const disp = v == null ? '' : fmt(toDisplay(m, v));
+  const editable = v == null ? '' : exact(toDisplay(m, v));
+  const r = activeRange(m);
+  const loD = r.lo != null ? exact(toDisplay(m, r.lo)) : '';
+  const hiD = r.hi != null ? exact(toDisplay(m, r.hi)) : '';
+  return `<div class="mk${st !== 'none' ? '' : ''}">
+    <div class="mk-top">
+      <div>
+        <div class="mk-name">${m.n}</div>
+        <div class="mk-range">${rangeLabel(m)}</div>
+      </div>
+      <div class="mk-val ${disp === '' ? 'nil' : ''}">${disp === '' ? '—' : disp}</div>
+      ${st === 'none' ? '<span></span>' : `<span class="pill p-${st}"><span class="dot"></span>${STATUS_TXT[st]}</span>`}
+    </div>
+    <div class="mk-body">
+      <p class="what">${m.what}</p>
+      <div class="talk"><b>Worth raising with your doctor</b>${m.talk}</div>
+      <div class="mk-entry">
+        <div>
+          <label>Your result (${unitOf(m)})</label>
+          <input type="number" step="any" data-mkval="${m.k}" value="${editable}" placeholder="—">
+        </div>
+        <div>
+          <label>Lab low</label>
+          <input type="number" step="any" data-mklo="${m.k}" value="${loD}" placeholder="${loD || 'none'}">
+        </div>
+        <div>
+          <label>Lab high</label>
+          <input type="number" step="any" data-mkhi="${m.k}" value="${hiD}" placeholder="${hiD || 'none'}">
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ══════════ TRAINING ══════════ */
+document.getElementById('exDate').value = today();
+document.getElementById('addEx').addEventListener('click', () => {
+  const d = document.getElementById('exDate').value || today();
+  const dist = parseFloat(document.getElementById('exDist').value);
+  const min  = parseFloat(document.getElementById('exMin').value);
+  const type = document.getElementById('exType').value;
+  if (!min && !dist) { alert('Add a distance or a number of minutes so there is something to record.'); return; }
+  exercise.unshift({ id:uid(), date:d, type,
+    dist: isNaN(dist) ? null : (isImp() ? dist * 1.60934 : dist),  // stored in km
+    min: isNaN(min) ? null : min,
+    effort: document.getElementById('exEffort').value,
+    note: document.getElementById('exNote').value.trim() });
+  exercise.sort((a, b) => b.date.localeCompare(a.date));
+  DB.set('exercise', exercise);
+  document.getElementById('exDist').value = ''; document.getElementById('exMin').value = '';
+  document.getElementById('exNote').value = '';
+  renderEx(); renderYou();
+});
+
+function fmtPace(km, min) {
+  if (!km || !min) return null;
+  const per = isImp() ? min / (km / 1.60934) : min / km;
+  const mm = Math.floor(per), ss = Math.round((per - mm) * 60);
+  return `${mm}:${String(ss).padStart(2, '0')} /${isImp() ? 'mi' : 'km'}`;
+}
+const showDist = km => km == null ? null :
+  (isImp() ? (km / 1.60934).toFixed(2) + ' mi' : km.toFixed(2) + ' km');
+
+function exSummary(days, el) {
+  const rows = exercise.filter(e => daysAgo(e.date) >= 0 && daysAgo(e.date) < days);
+  const km = rows.reduce((a, e) => a + (e.dist || 0), 0);
+  const mins = rows.reduce((a, e) => a + (e.min || 0), 0);
+  const hrs = Math.floor(mins / 60), rem = Math.round(mins % 60);
+  document.getElementById(el).innerHTML = `
+    <div class="stat"><div class="stat-n">${rows.length}</div><div class="stat-l">Sessions</div></div>
+    <div class="stat"><div class="stat-n">${isImp() ? (km / 1.60934).toFixed(1) : km.toFixed(1)}</div>
+      <div class="stat-l">${isImp() ? 'Miles' : 'Kilometres'}</div></div>
+    <div class="stat"><div class="stat-n">${hrs}h ${rem}m</div><div class="stat-l">Moving time</div></div>
+    <div class="stat"><div class="stat-n">${new Set(rows.map(r => r.date)).size}</div><div class="stat-l">Active days</div></div>`;
+}
+
+function renderEx() {
+  exSummary(7, 'exStats7'); exSummary(28, 'exStats28');
+  const el = document.getElementById('exLog');
+  if (!exercise.length) {
+    el.innerHTML = `<div class="empty"><strong>Nothing logged yet</strong>
+      Add your first session above — a walk counts.</div>`; return;
+  }
+  el.innerHTML = exercise.slice(0, 60).map(e => {
+    const bits = [];
+    if (e.dist) bits.push(showDist(e.dist));
+    if (e.min) bits.push(e.min + ' min');
+    const p = fmtPace(e.dist, e.min); if (p) bits.push(p);
+    if (e.effort) bits.push(e.effort.toLowerCase());
+    return `<div class="log-item">
+      <div class="log-date">${fmtShort(e.date)}</div>
+      <div><div class="log-main">${esc(e.type)}${e.note ? ' — <span style="color:var(--ink-soft)">' + esc(e.note) + '</span>' : ''}</div>
+        <div class="log-sub">${bits.join(' · ')}</div></div>
+      <div class="log-act"><button class="x" data-delex="${e.id}" aria-label="Delete">×</button></div>
+    </div>`;
+  }).join('');
+  el.querySelectorAll('[data-delex]').forEach(b => b.onclick = () => {
+    exercise = exercise.filter(x => x.id !== b.dataset.delex);
+    DB.set('exercise', exercise); renderEx(); renderYou();
+  });
+}
+const fmtShort = d => { const x = new Date(d + 'T12:00:00');
+  return x.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }); };
+
+/* ══════════ SUPPLEMENTS ══════════ */
+document.getElementById('addSupp').addEventListener('click', () => {
+  const n = document.getElementById('spName').value.trim();
+  if (!n) { alert('Give it a name first.'); return; }
+  supps.push({ id:uid(), name:n,
+    dose: document.getElementById('spDose').value.trim(),
+    time: document.getElementById('spTime').value.trim() });
+  DB.set('supps', supps);
+  ['spName','spDose','spTime'].forEach(i => document.getElementById(i).value = '');
+  renderSupps();
+});
+
+function renderSupps() {
+  document.getElementById('suppDate').textContent =
+    new Date().toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long' });
+  const el = document.getElementById('suppList');
+  const log = suppLog[today()] || {};
+  if (!supps.length) {
+    el.innerHTML = `<div class="empty"><strong>No supplements added</strong>
+      Add whatever you already take, then tick them off each day.</div>`;
+    document.getElementById('suppStats').innerHTML = ''; return;
+  }
+  el.innerHTML = supps.map(s => `<div class="supp">
+      <button class="tick ${log[s.id] ? 'on' : ''}" data-tick="${s.id}" aria-label="Mark taken">✓</button>
+      <div><div class="log-main">${esc(s.name)}</div>
+        <div class="log-sub">${[esc(s.dose), esc(s.time)].filter(Boolean).join(' · ') || 'No dose noted'}</div></div>
+      <button class="x" data-delsupp="${s.id}" aria-label="Remove">×</button>
+    </div>`).join('');
+  el.querySelectorAll('[data-tick]').forEach(b => b.onclick = () => {
+    const d = today(); suppLog[d] = suppLog[d] || {};
+    suppLog[d][b.dataset.tick] = !suppLog[d][b.dataset.tick];
+    DB.set('suppLog', suppLog); renderSupps();
+  });
+  el.querySelectorAll('[data-delsupp]').forEach(b => b.onclick = () => {
+    if (!confirm('Remove this supplement and its tick history?')) return;
+    supps = supps.filter(x => x.id !== b.dataset.delsupp);
+    DB.set('supps', supps); renderSupps();
+  });
+  document.getElementById('suppStats').innerHTML =
+    `<div class="stat"><div class="stat-n">${adherence(7)}%</div><div class="stat-l">Taken · 7 days</div></div>
+     <div class="stat"><div class="stat-n">${adherence(30)}%</div><div class="stat-l">Taken · 30 days</div></div>
+     <div class="stat"><div class="stat-n">${streak()}</div><div class="stat-l">Day streak</div></div>`;
+}
+function adherence(days) {
+  if (!supps.length) return 0;
+  let total = 0;
+  for (let i = 0; i < days; i++) {
+    const d = new Date(Date.now() - i * 86400000).toISOString().slice(0, 10);
+    const log = suppLog[d] || {};
+    total += supps.filter(s => log[s.id]).length / supps.length;
+  }
+  return Math.round((total / days) * 100);
+}
+function streak() {
+  let n = 0;
+  for (let i = 0; i < 400; i++) {
+    const d = new Date(Date.now() - i * 86400000).toISOString().slice(0, 10);
+    const log = suppLog[d] || {};
+    if (supps.length && supps.every(s => log[s.id])) n++; else break;
+  }
+  return n;
+}
+
+/* ══════════ MEASUREMENTS ══════════ */
+document.getElementById('bDate').value = today();
+document.getElementById('addBody').addEventListener('click', () => {
+  const w = parseFloat(document.getElementById('bWeight').value);
+  const wa = parseFloat(document.getElementById('bWaist').value);
+  const hr = parseFloat(document.getElementById('bRhr').value);
+  const bp = document.getElementById('bBp').value.trim();
+  if (isNaN(w) && isNaN(wa) && isNaN(hr) && !bp) { alert('Fill in at least one reading.'); return; }
+  bodyLog.unshift({ id:uid(), date: document.getElementById('bDate').value || today(),
+    kg: isNaN(w) ? null : (isImp() ? w * 0.4536 : w),
+    cm: isNaN(wa) ? null : (isImp() ? wa * 2.54 : wa),
+    hr: isNaN(hr) ? null : hr, bp });
+  bodyLog.sort((a, b) => b.date.localeCompare(a.date));
+  DB.set('bodyLog', bodyLog);
+  ['bWeight','bWaist','bRhr','bBp'].forEach(i => document.getElementById(i).value = '');
+  renderBody(); renderYou();
+});
+
+function renderBody() {
+  const el = document.getElementById('bodyLog');
+  const card = document.getElementById('weightCard');
+  const ws = bodyLog.filter(b => b.kg != null).slice().reverse();
+  if (ws.length < 2) {
+    card.innerHTML = `<p class="note" style="margin:0">Add two or more weight readings and a line
+      will appear here. One number is a snapshot; a line is information.</p>`;
+  } else {
+    const vals = ws.map(b => isImp() ? b.kg / 0.4536 : b.kg);
+    const min = Math.min(...vals), max = Math.max(...vals), span = (max - min) || 1;
+    const pts = vals.map((v, i) =>
+      `${(i / (vals.length - 1)) * 100},${44 - ((v - min) / span) * 38}`).join(' ');
+    const first = vals[0], last = vals[vals.length - 1], diff = last - first;
+    card.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+        <div><span style="font-family:var(--serif);font-size:1.7rem;font-weight:500">${last.toFixed(1)}</span>
+          <span style="font-family:var(--mono);font-size:.75rem;color:var(--grey)"> ${isImp() ? 'lb' : 'kg'} now</span></div>
+        <div style="font-family:var(--mono);font-size:.75rem;color:${diff <= 0 ? 'var(--green)' : 'var(--amber)'}">
+          ${diff > 0 ? '+' : ''}${diff.toFixed(1)} since ${fmtShort(ws[0].date)}</div>
+      </div>
+      <svg class="spark" viewBox="0 0 100 48" preserveAspectRatio="none" aria-hidden="true">
+        <polyline points="${pts}" fill="none" stroke="var(--brass)" stroke-width="1.4"
+          vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"/>
+      </svg>
+      <p class="note" style="margin:6px 0 0">${ws.length} readings · ${fmtShort(ws[0].date)} to ${fmtShort(ws[ws.length - 1].date)}</p>`;
+  }
+  if (!bodyLog.length) {
+    el.innerHTML = `<div class="empty"><strong>No readings yet</strong>Add one above.</div>`; return;
+  }
+  el.innerHTML = bodyLog.slice(0, 60).map(b => {
+    const bits = [];
+    if (b.kg != null) bits.push((isImp() ? (b.kg / 0.4536).toFixed(1) + ' lb' : b.kg.toFixed(1) + ' kg'));
+    if (b.cm != null) bits.push('waist ' + (isImp() ? (b.cm / 2.54).toFixed(1) + ' in' : b.cm.toFixed(1) + ' cm'));
+    if (b.hr != null) bits.push(b.hr + ' bpm');
+    if (b.bp) bits.push(esc(b.bp));
+    return `<div class="log-item">
+      <div class="log-date">${fmtShort(b.date)}</div>
+      <div><div class="log-sub" style="margin:0">${bits.join(' · ')}</div></div>
+      <button class="x" data-delbody="${b.id}" aria-label="Delete">×</button></div>`;
+  }).join('');
+  el.querySelectorAll('[data-delbody]').forEach(btn => btn.onclick = () => {
+    bodyLog = bodyLog.filter(x => x.id !== btn.dataset.delbody);
+    DB.set('bodyLog', bodyLog); renderBody(); renderYou();
+  });
+}
+
+/* ══════════ APPOINTMENT ══════════ */
+document.getElementById('addQ').addEventListener('click', () => {
+  const t = document.getElementById('qNew').value.trim();
+  if (!t) return;
+  questions.push({ id:uid(), t }); DB.set('questions', questions);
+  document.getElementById('qNew').value = ''; renderQ(); renderAppt();
+});
+function renderQ() {
+  const el = document.getElementById('qList');
+  if (!questions.length) {
+    el.innerHTML = `<div class="empty"><strong>No questions yet</strong>
+      Write them down as they occur to you — they never come to mind in the room.</div>`; return;
+  }
+  el.innerHTML = questions.map((q, i) => `<div class="log-item">
+      <div class="log-date">${String(i + 1).padStart(2, '0')}</div>
+      <div class="log-main">${esc(q.t)}</div>
+      <button class="x" data-delq="${q.id}" aria-label="Delete">×</button></div>`).join('');
+  el.querySelectorAll('[data-delq]').forEach(b => b.onclick = () => {
+    questions = questions.filter(x => x.id !== b.dataset.delq);
+    DB.set('questions', questions); renderQ(); renderAppt();
+  });
+}
+function renderAppt() {
+  const flagged = MARKERS.filter(m => ['amber','red'].includes(statusOf(m)));
+  const entered = MARKERS.filter(m => statusOf(m) !== 'none');
+  const who = [profile.name, profile.age ? profile.age + ' years' : '',
+    profile.sex === 'f' ? 'female' : 'male'].filter(Boolean).join(' · ');
+  let h = `<div class="card">
+    <h3 class="sub" style="margin-top:0">Summary</h3>
+    <p class="note" style="margin:0 0 10px">${esc(who) || 'No details entered'}${bloodDate ? ' · bloods dated ' + fmtShort(bloodDate) : ''}</p>
+    <p style="font-size:.86rem;color:var(--ink-soft)">Self-recorded figures typed in by the patient
+    from their own report. Reference ranges shown are general adult ranges unless edited, and may
+    not match the issuing laboratory. Not a clinical document.</p></div>`;
+
+  if (flagged.length) {
+    h += `<h3 class="sub">Outside the range shown (${flagged.length})</h3><div class="log">` +
+      flagged.map(m => `<div class="log-item">
+        <div class="log-date">${statusOf(m) === 'red' ? '!!' : '!'}</div>
+        <div><div class="log-main">${m.n}</div>
+        <div class="log-sub">${fmt(toDisplay(m, markers[m.k]))} ${unitOf(m)} · range ${rangeLabel(m)}</div></div>
+        <span class="pill p-${statusOf(m)}"><span class="dot"></span>${STATUS_TXT[statusOf(m)]}</span>
+      </div>`).join('') + '</div>';
+  } else if (entered.length) {
+    h += `<h3 class="sub">Flags</h3><div class="card"><p class="note" style="margin:0">
+      Everything entered sits inside the range shown. That is not the same as everything being
+      fine — it only means nothing has crossed a line drawn in this file.</p></div>`;
+  }
+
+  if (entered.length) {
+    h += `<h3 class="sub">Everything entered (${entered.length})</h3><div class="log">` +
+      entered.map(m => `<div class="log-item">
+        <div class="log-date">${statusOf(m) === 'green' ? '·' : '!'}</div>
+        <div><div class="log-main">${m.n}</div><div class="log-sub">range ${rangeLabel(m)}</div></div>
+        <div style="font-family:var(--mono);font-size:.85rem">${fmt(toDisplay(m, markers[m.k]))} ${unitOf(m)}</div>
+      </div>`).join('') + '</div>';
+  } else {
+    h += `<div class="empty"><strong>No results entered yet</strong>
+      Fill in the Bloods tab and this page fills itself.</div>`;
+  }
+
+  if (supps.length) {
+    h += `<h3 class="sub">Supplements I take</h3><div class="log">` +
+      supps.map(s => `<div class="log-item"><div class="log-date">·</div>
+        <div><div class="log-main">${esc(s.name)}</div>
+        <div class="log-sub">${[esc(s.dose), esc(s.time)].filter(Boolean).join(' · ') || '—'}</div></div>
+        <div></div></div>`).join('') + '</div>';
+  }
+
+  const r7 = exercise.filter(e => daysAgo(e.date) < 28);
+  if (r7.length) {
+    const km = r7.reduce((a, e) => a + (e.dist || 0), 0);
+    const mins = r7.reduce((a, e) => a + (e.min || 0), 0);
+    const hh = Math.floor(mins / 60), mm2 = Math.round(mins % 60);
+    const time = hh ? `${hh} hour${hh === 1 ? '' : 's'}${mm2 ? ' ' + mm2 + ' min' : ''}` : `${mm2} min`;
+    h += `<h3 class="sub">Activity · last 28 days</h3><div class="card"><p style="font-size:.9rem;color:var(--ink-soft);margin:0">
+      ${r7.length} session${r7.length === 1 ? '' : 's'} ·
+      ${isImp() ? (km / 1.60934).toFixed(1) + ' miles' : km.toFixed(1) + ' km'} ·
+      ${time} moving.</p></div>`;
+  }
+
+  if (questions.length) {
+    h += `<h3 class="sub">Questions I want to ask</h3><div class="log">` +
+      questions.map((q, i) => `<div class="log-item">
+        <div class="log-date">${String(i + 1).padStart(2, '0')}</div>
+        <div class="log-main">${esc(q.t)}</div><div></div></div>`).join('') + '</div>';
+  }
+  document.getElementById('apptSummary').innerHTML = h;
+}
+document.getElementById('printBtn').addEventListener('click', () => {
+  const t = document.getElementById('t-appt');
+  t.classList.add('print'); window.print();
+  setTimeout(() => t.classList.remove('print'), 500);
+});
+
+/* ══════════ DATA ══════════ */
+document.getElementById('exportBtn').addEventListener('click', () => {
+  const blob = new Blob([JSON.stringify({
+    v:1, saved:new Date().toISOString(),
+    profile, markers, ranges, bloodDate, exercise, supps, suppLog, bodyLog, questions
+  }, null, 2)], { type:'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'longevity-backup-' + today() + '.json';
+  a.click(); URL.revokeObjectURL(a.href);
+});
+document.getElementById('importFile').addEventListener('change', e => {
+  const f = e.target.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const d = JSON.parse(r.result);
+      if (!confirm('This replaces everything currently saved in this browser. Continue?')) return;
+      profile = d.profile || profile; markers = d.markers || {}; ranges = d.ranges || {};
+      bloodDate = d.bloodDate || ''; exercise = d.exercise || []; supps = d.supps || [];
+      suppLog = d.suppLog || {}; bodyLog = d.bodyLog || []; questions = d.questions || [];
+      DB.set('profile', profile);     DB.set('markers', markers);
+      DB.set('ranges', ranges);       DB.set('bloodDate', bloodDate);
+      DB.set('exercise', exercise);   DB.set('supps', supps);
+      DB.set('suppLog', suppLog);     DB.set('bodyLog', bodyLog);
+      DB.set('questions', questions);
+      paintProfile(); renderAll(); alert('Backup restored.');
+    } catch { alert('That file could not be read. Make sure it is a backup downloaded from this dashboard.'); }
+  };
+  r.readAsText(f);
+});
+document.getElementById('wipeBtn').addEventListener('click', () => {
+  if (!confirm('Erase every entry permanently? There is no undo.')) return;
+  if (!confirm('Last check — this cannot be recovered. Erase everything?')) return;
+  ['profile','markers','ranges','bloodDate','exercise','supps','suppLog','bodyLog','questions','agreed']
+    .forEach(k => DB.del(k));
+  location.reload();
+});
+
+/* ══════════ BOOT ══════════ */
+function renderAll() { renderYou(); renderMarkers(); renderEx(); renderSupps(); renderBody(); renderQ(); renderAppt(); }
+paintProfile();
+renderAll();
+
+</script>
+</body>
+</html>
